@@ -819,7 +819,7 @@ body {
   position: absolute;
   right: -8%;
   top: 12%;
-  width: min(88vw, 510px);
+  width: min(92vw, 530px);
   aspect-ratio: .76;
   opacity: .87;
   transform: rotate(4deg);
@@ -827,19 +827,10 @@ body {
   filter: saturate(.92);
 }
 
-.watercolor::after {
-  content: "";
-  position: absolute;
-  inset: 7% 15%;
-  border: 1px solid rgba(40,52,60,.25);
-  border-radius: 52% 48% 45% 55% / 36% 39% 61% 64%;
-  transform: rotate(-7deg);
-}
-
 .watercolor::before {
   content: "";
   position: absolute;
-  inset: 7% 12% 5% 16%;
+  inset: 5% 8% 3% 12%;
   z-index: 4;
   border-radius: 48% 52% 46% 54% / 35% 43% 57% 65%;
   background: linear-gradient(180deg, transparent 56%, rgba(232,223,201,.96) 95%);
@@ -847,33 +838,12 @@ body {
   pointer-events: none;
 }
 
-.watercolor-halo {
-  position: absolute;
-  inset: 4% 3% 8% 5%;
-  z-index: -1;
-  border-radius: 47% 53% 60% 40% / 41% 37% 63% 59%;
-  background: radial-gradient(ellipse at 50% 40%, rgba(179,205,201,.28), transparent 67%);
-  animation: haloPulse 6.5s ease-in-out infinite;
-}
-
-.watercolor-shape {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(1px);
-  mix-blend-mode: multiply;
-  animation: drift 9s ease-in-out infinite alternate;
-}
-.watercolor-shape.one { inset: 12% 16% 8% 19%; background: rgba(106,147,156,.43); border-radius: 57% 43% 52% 48% / 38% 42% 58% 62%; }
-.watercolor-shape.two { inset: 28% 24% 18% 8%; background: rgba(167,94,75,.44); border-radius: 49% 51% 40% 60% / 56% 38% 62% 44%; animation-delay: -2s; }
-.watercolor-shape.three { inset: 4% 7% 35% 37%; background: rgba(214,186,118,.34); border-radius: 46% 54% 61% 39% / 54% 61% 39% 46%; animation-delay: -4s; }
-.watercolor-shape.four { inset: 42% 10% 5% 38%; background: rgba(56,79,88,.25); border-radius: 50%; animation-delay: -6s; }
-
 .portrait-image {
   position: absolute;
-  inset: 10% 12% 6% 14%;
+  inset: 8% 10% 4% 12%;
   z-index: 2;
-  width: 76%;
-  height: 84%;
+  width: 80%;
+  height: 88%;
   object-fit: cover;
   object-position: center top;
   opacity: .92;
@@ -883,19 +853,6 @@ body {
   mask-image: linear-gradient(180deg, #000 0%, #000 63%, transparent 95%);
   animation: portraitFloat 8s ease-in-out infinite;
 }
-
-.watercolor-drip {
-  position: absolute;
-  z-index: 3;
-  width: 12px;
-  border-radius: 50% 50% 58% 42%;
-  background: linear-gradient(180deg, rgba(167,94,75,.44), rgba(167,94,75,0));
-  filter: blur(1px);
-  transform-origin: top center;
-  animation: drip 5s ease-in-out infinite;
-}
-.drip-one { height: 94px; left: 47%; top: 61%; animation-delay: -1.6s; }
-.drip-two { height: 68px; left: 62%; top: 66%; width: 8px; background: linear-gradient(180deg, rgba(106,147,156,.42), rgba(106,147,156,0)); animation-delay: -3.2s; }
 
 .reveal-orbit {
   position: absolute;
@@ -960,6 +917,67 @@ body {
   font-family: var(--app-font-serif);
   font-size: 3.4em;
   line-height: .73;
+}
+
+.letter-keepsake {
+  position: absolute;
+  left: clamp(28px, 12vw, 120px);
+  bottom: 14%;
+  width: 168px;
+  color: var(--ink-soft);
+  transform: rotate(-4deg);
+  pointer-events: none;
+}
+.keepsake-card {
+  position: relative;
+  width: 112px;
+  height: 76px;
+  padding: 11px 12px;
+  border: 1px solid rgba(43,49,54,.28);
+  background: rgba(244,235,215,.28);
+  box-shadow: 5px 6px 0 rgba(43,49,54,.07);
+}
+.keepsake-card::before,
+.keepsake-card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.keepsake-card::before {
+  inset: 10px 10px 9px;
+  border-top: 1px solid rgba(43,49,54,.22);
+  transform: skewY(-8deg) rotate(-2deg);
+}
+.keepsake-card::after {
+  left: 12px;
+  right: 12px;
+  bottom: 18px;
+  border-bottom: 1px solid rgba(43,49,54,.2);
+  transform: rotate(6deg);
+}
+.keepsake-label {
+  position: relative;
+  z-index: 1;
+  font-family: var(--app-font-mono);
+  font-size: 8px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.keepsake-mark {
+  position: absolute;
+  right: 13px;
+  bottom: 7px;
+  color: var(--rust);
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 35px;
+  line-height: .8;
+  transform: rotate(-9deg);
+}
+.keepsake-caption {
+  display: block;
+  margin: 10px 0 0 22px;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 20px;
 }
 
 .memory-grid {

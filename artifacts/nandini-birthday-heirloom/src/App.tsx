@@ -237,6 +237,13 @@ function Home() {
               <span className="letter-initial">I</span> wanted to give you something that could not be wrapped, put in a bag, or finished in a single glance.
             </p>
           </div>
+          <div className="letter-keepsake" aria-hidden="true">
+            <div className="keepsake-card">
+              <span className="keepsake-label">for later</span>
+              <span className="keepsake-mark">N</span>
+            </div>
+            <span className="keepsake-caption">read this slowly</span>
+          </div>
           <div className="chapter-footer">
             <span data-testid="status-letter-chapter">Chapter 02 / 06</span>
             <button className="footer-next" type="button" onClick={next} data-testid="button-letter-next">Turn the page <span aria-hidden="true">→</span></button>
@@ -268,13 +275,6 @@ function Home() {
 
         <section className={`chapter ${chapter === 3 ? 'is-active' : ''}`} aria-hidden={chapter !== 3} data-testid="chapter-portrait">
           <div className="watercolor" aria-label="Watercolor portrait of Nandini with a soft paint-dissolve effect" data-testid="artwork-nandini-portrait">
-            <div className="watercolor-halo" />
-            <div className="watercolor-shape one" />
-            <div className="watercolor-shape two" />
-            <div className="watercolor-shape three" />
-            <div className="watercolor-shape four" />
-            <div className="watercolor-drip drip-one" />
-            <div className="watercolor-drip drip-two" />
             <img className="portrait-image" src={portraitImage} alt="Nandini smiling in a red patterned outfit" data-testid="img-nandini-portrait" />
           </div>
           <div className="ink-reveal" style={{ position: 'relative', zIndex: 1 }}>
