@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Nandini Birthday Heirloom"
+description = "A mobile-first birthday experience for Nandini, presented as an intimate sequence of tactile paper chapters with editorial typography, hand-drawn controls, and soft liquid transitions."
+version = "1.0.0"
+id = "artifacts/nandini-birthday-heirloom"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18466
+
+[services.development]
+run = "pnpm --filter @workspace/nandini-birthday-heirloom run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/nandini-birthday-heirloom", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/nandini-birthday-heirloom/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18466"
+BASE_PATH = "/"
