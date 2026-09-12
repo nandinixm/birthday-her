@@ -625,7 +625,7 @@ body {
   position: relative;
   display: block;
   min-height: 56px;
-  margin-top: 42px;
+  margin-top: 52px;
   margin-left: auto;
   margin-right: clamp(4px, 3vw, 22px);
   padding: 15px 25px 13px;
@@ -1129,34 +1129,65 @@ body {
   height: 100%;
   display: block;
   mix-blend-mode: multiply;
+  opacity: .08;
 }
 .portal-wash {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(18px);
+  border-radius: 62% 38% 54% 46% / 48% 56% 44% 52%;
+  filter: blur(10px);
   mix-blend-mode: multiply;
-  opacity: .65;
-  animation: washBurst 1.18s cubic-bezier(.2,.8,.2,1) both;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.12) rotate(-12deg);
+  animation: watercolorDissolve 1.36s cubic-bezier(.2,.75,.2,1) both;
 }
 .wash-one {
-  width: 60vw;
-  height: 60vw;
-  left: 20%;
-  top: 20%;
-  background: rgba(167,94,75,.5);
+  width: 74vw;
+  height: 58vw;
+  left: 23%;
+  top: 42%;
+  background: rgba(173,91,75,.62);
+  animation-delay: -.04s;
 }
 .wash-two {
-  width: 48vw;
-  height: 80vw;
-  left: 48%;
-  top: -10%;
-  background: rgba(106,147,156,.46);
-  animation-delay: -.14s;
+  width: 62vw;
+  height: 94vw;
+  left: 75%;
+  top: 23%;
+  background: rgba(92,139,148,.52);
+  animation-delay: -.22s;
+}
+.wash-three {
+  width: 88vw;
+  height: 54vw;
+  left: 58%;
+  top: 77%;
+  background: rgba(197,153,72,.38);
+  animation-delay: -.38s;
+  filter: blur(15px);
+}
+.wash-four {
+  width: 54vw;
+  height: 68vw;
+  left: 25%;
+  top: 5%;
+  background: rgba(122,157,145,.34);
+  animation-delay: -.5s;
+  filter: blur(16px);
+}
+.portal-rinse {
+  position: absolute;
+  inset: -16%;
+  background:
+    radial-gradient(ellipse at 48% 50%, rgba(246,239,222,.14), transparent 34%),
+    rgba(232,223,201,.86);
+  opacity: 0;
+  transform: scale(.88);
+  animation: rinsePaper 1.36s ease both;
 }
 .portal-caption {
   position: absolute;
   left: 50%;
-  bottom: 14%;
+  bottom: 13%;
   color: rgba(41,49,61,.64);
   font-family: var(--app-font-mono);
   font-size: 9px;
@@ -1181,6 +1212,18 @@ body {
 @keyframes twinkle { 0%,100% { opacity: .32; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.4); } }
 @keyframes washBurst { 0% { transform: scale(.05) translate(-50%, -50%); opacity: 0; } 32% { opacity: .75; } 100% { transform: scale(4.2) translate(-4%, 3%); opacity: .2; } }
 @keyframes portalCaption { 0% { opacity: 0; transform: translate(-50%, 10px); } 24% { opacity: 1; transform: translate(-50%, 0); } 78% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes watercolorDissolve {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.12) rotate(-12deg); }
+  18% { opacity: .78; }
+  58% { opacity: .62; transform: translate(-50%, -50%) scale(1.25) rotate(10deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.15) rotate(24deg); }
+}
+@keyframes rinsePaper {
+  0% { opacity: 0; transform: scale(.88); }
+  20% { opacity: .2; }
+  68% { opacity: .92; transform: scale(1.04); }
+  100% { opacity: .96; transform: scale(1); }
+}
 
 @media (min-width: 700px) {
   .chapter { padding-right: 13vw; }

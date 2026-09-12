@@ -143,7 +143,7 @@ function Home() {
     window.setTimeout(() => {
       setPortalOpen(false);
       goTo(1);
-    }, 1180);
+    }, 1360);
   }, [goTo, portalOpen]);
 
   const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
@@ -334,7 +334,10 @@ function Home() {
         <LiquidPortal active={portalOpen} />
         <div className="portal-wash wash-one" />
         <div className="portal-wash wash-two" />
-        <span className="portal-caption">A little magic, for you</span>
+        <div className="portal-wash wash-three" />
+        <div className="portal-wash wash-four" />
+        <div className="portal-rinse" />
+        <span className="portal-caption">turning the page</span>
       </div>
 
       <nav className="progress-rail" aria-label="Letter chapters" data-testid="navigation-chapters">
