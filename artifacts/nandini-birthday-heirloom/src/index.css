@@ -623,32 +623,57 @@ body {
 
 .double-button {
   position: relative;
-  align-self: flex-start;
-  min-height: 52px;
-  margin-top: 28px;
-  padding: 13px 23px 12px;
+  display: block;
+  min-height: 56px;
+  margin-top: 42px;
+  margin-left: auto;
+  margin-right: clamp(4px, 3vw, 22px);
+  padding: 15px 25px 13px;
   border: 1px solid var(--ink);
-  border-radius: 3px;
+  border-radius: 3px 7px 2px 5px;
   color: var(--ink);
   background: rgba(245,236,215,.3);
   font-family: var(--app-font-mono);
   font-size: 11px;
   letter-spacing: .14em;
   text-transform: uppercase;
-  transition: transform .2s ease, background-color .2s ease;
+  transform: rotate(-1.4deg);
+  touch-action: manipulation;
+  transition: transform .26s cubic-bezier(.2,.8,.2,1), background-color .2s ease, box-shadow .2s ease;
 }
 
+.double-button::before,
 .double-button::after {
   content: "";
   position: absolute;
-  inset: 4px -4px -4px 4px;
-  border: 1px solid currentColor;
-  border-radius: 3px;
   pointer-events: none;
 }
 
-.double-button:hover { background: rgba(255,255,255,.24); transform: translate(-2px,-2px); }
-.double-button:active { transform: translate(1px,1px); }
+.double-button::before {
+  inset: -3px 3px 3px -3px;
+  border: 1px solid currentColor;
+  border-radius: 7px 3px 6px 2px;
+  opacity: .72;
+  transform: rotate(1.6deg);
+}
+
+.double-button::after {
+  inset: 3px -5px -4px 4px;
+  border: 1px solid currentColor;
+  border-radius: 2px 5px 3px 7px;
+  opacity: .5;
+  transform: rotate(-1deg);
+}
+
+.double-button:hover {
+  background: rgba(255,255,255,.24);
+  box-shadow: 3px 4px 0 rgba(43,49,54,.12);
+  transform: translate(-3px,-4px) rotate(-1.4deg);
+}
+.double-button:active {
+  box-shadow: none;
+  transform: translate(1px,1px) rotate(-1.4deg);
+}
 .chapter--dark .double-button { border-color: #d7d1bf; color: #e8dfc9; background: rgba(214,227,223,.06); }
 
 .chapter-footer {
@@ -912,6 +937,16 @@ body {
 .is-active .ink-reveal > *:nth-child(2) { transition-delay: .13s; }
 .is-active .ink-reveal > *:nth-child(3) { transition-delay: .25s; }
 .is-active .ink-reveal > *:nth-child(4) { transition-delay: .37s; }
+.is-active .ink-reveal .double-button {
+  transform: rotate(-1.4deg);
+  transition: opacity .65s ease, transform .26s cubic-bezier(.2,.8,.2,1), background-color .2s ease, box-shadow .2s ease;
+}
+.is-active .ink-reveal .double-button:hover {
+  transform: translate(-3px,-4px) rotate(-1.4deg);
+}
+.is-active .ink-reveal .double-button:active {
+  transform: translate(1px,1px) rotate(-1.4deg);
+}
 
 .chapter--welcome { justify-content: center; }
 .welcome-mark {
