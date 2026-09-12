@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode, type TouchEvent, type WheelEvent } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import portraitImage from '@assets/generated_images/nandini-example-portrait.png';
+import portraitImage from '@assets/IMG-20260911-WA3730_1789193689811.jpg';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -245,7 +245,7 @@ function Home() {
         </section>
 
         <section className={`chapter ${chapter === 3 ? 'is-active' : ''}`} aria-hidden={chapter !== 3} data-testid="chapter-portrait">
-          <div className="watercolor" aria-label="Abstract watercolor portrait in slate blue, rust, and ochre" data-testid="artwork-abstract-portrait">
+          <div className="watercolor" aria-label="Watercolor portrait of Nandini with a soft paint-dissolve effect" data-testid="artwork-nandini-portrait">
             <div className="watercolor-halo" />
             <div className="watercolor-shape one" />
             <div className="watercolor-shape two" />
@@ -253,7 +253,7 @@ function Home() {
             <div className="watercolor-shape four" />
             <div className="watercolor-drip drip-one" />
             <div className="watercolor-drip drip-two" />
-            <img className="portrait-image" src={portraitImage} alt="Example watercolor portrait of a woman" data-testid="img-example-portrait" />
+            <img className="portrait-image" src={portraitImage} alt="Nandini smiling in a red patterned outfit" data-testid="img-nandini-portrait" />
             <div className="portrait-line" />
           </div>
           <div className="ink-reveal" style={{ position: 'relative', zIndex: 1 }}>
