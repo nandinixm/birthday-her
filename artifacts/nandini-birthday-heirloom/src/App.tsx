@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode, type TouchEvent, type WheelEvent } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import portraitImage from '@assets/generated_images/nandini-example-portrait.png';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -13,8 +14,119 @@ import {
 
 const queryClient = new QueryClient();
 
+function LiquidPortal({ active }: { active: boolean }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    if (!active || !canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const gl = canvas.getContext('webgl', { alpha: true, antialias: false });
+    if (!gl) return;
+
+    const vertexSource = `
+      attribute vec2 position;
+      varying vec2 uv;
+      void main() {
+        uv = position * 0.5 + 0.5;
+        gl_Position = vec4(position, 0.0, 1.0);
+      }
+    `;
+    const fragmentSource = `
+      precision mediump float;
+      varying vec2 uv;
+      uniform float uTime;
+      uniform float uProgress;
+
+      float hash(vec2 p) {
+        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+      }
+
+      void main() {
+        vec2 centered = uv - 0.5;
+        float distanceFromCenter = length(centered);
+        float grain = hash(floor(uv * 18.0 + uTime * 0.4));
+        float wave = sin(distanceFromCenter * 30.0 - uTime * 7.0 + grain * 4.0) * 0.024;
+        float radius = uProgress * 0.92;
+        float bloom = 1.0 - smoothstep(radius - 0.22, radius + 0.05, distanceFromCenter + wave);
+        float edge = 1.0 - smoothstep(0.02, 0.14, abs(distanceFromCenter - radius + wave));
+        float burst = smoothstep(0.18, 0.0, distanceFromCenter) * (0.25 + grain * 0.55);
+        vec3 cream = vec3(0.91, 0.86, 0.74);
+        vec3 lake = vec3(0.20, 0.42, 0.48);
+        vec3 rust = vec3(0.64, 0.25, 0.18);
+        vec3 ochre = vec3(0.88, 0.62, 0.24);
+        vec3 ink = mix(lake, rust, smoothstep(0.1, 0.7, uv.x + sin(uTime) * 0.18));
+        ink = mix(ink, ochre, smoothstep(0.32, 0.9, grain + uv.y * 0.3));
+        vec3 color = mix(cream, ink, clamp(bloom * 0.9 + edge * 0.76 + burst, 0.0, 1.0));
+        float alpha = clamp(bloom * 0.88 + edge * 0.7 + burst, 0.0, 1.0);
+        gl_FragColor = vec4(color, alpha);
+      }
+    `;
+
+    const compile = (type: number, source: string) => {
+      const shader = gl.createShader(type);
+      if (!shader) return null;
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      return gl.getShaderParameter(shader, gl.COMPILE_STATUS) ? shader : null;
+    };
+    const vertexShader = compile(gl.VERTEX_SHADER, vertexSource);
+    const fragmentShader = compile(gl.FRAGMENT_SHADER, fragmentSource);
+    if (!vertexShader || !fragmentShader) return;
+
+    const program = gl.createProgram();
+    if (!program) return;
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    gl.useProgram(program);
+    const position = gl.getAttribLocation(program, 'position');
+    gl.enableVertexAttribArray(position);
+    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+    const timeLocation = gl.getUniformLocation(program, 'uTime');
+    const progressLocation = gl.getUniformLocation(program, 'uProgress');
+    const startedAt = performance.now();
+    let animationFrame = 0;
+
+    const resize = () => {
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.floor(window.innerWidth * ratio);
+      canvas.height = Math.floor(window.innerHeight * ratio);
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    };
+    const render = (now: number) => {
+      const elapsed = now - startedAt;
+      const progress = Math.min(elapsed / 1180, 1);
+      gl.uniform1f(timeLocation, elapsed / 1000);
+      gl.uniform1f(progressLocation, progress);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      if (progress < 1) animationFrame = requestAnimationFrame(render);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    animationFrame = requestAnimationFrame(render);
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationFrame);
+      gl.deleteBuffer(buffer);
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+    };
+  }, [active]);
+
+  return <canvas ref={canvasRef} className="liquid-portal-canvas" aria-hidden="true" />;
+}
+
 function Home() {
   const [chapter, setChapter] = useState(0);
+  const [portalOpen, setPortalOpen] = useState(false);
   const touchStart = useRef<number | null>(null);
   const wheelLock = useRef(false);
   const totalChapters = 6;
@@ -25,6 +137,14 @@ function Home() {
 
   const next = useCallback(() => goTo(chapter + 1), [chapter, goTo]);
   const previous = useCallback(() => goTo(chapter - 1), [chapter, goTo]);
+  const openPortal = useCallback(() => {
+    if (portalOpen) return;
+    setPortalOpen(true);
+    window.setTimeout(() => {
+      setPortalOpen(false);
+      goTo(1);
+    }, 1180);
+  }, [goTo, portalOpen]);
 
   const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
     touchStart.current = event.changedTouches[0]?.clientY ?? null;
@@ -73,7 +193,7 @@ function Home() {
 
   return (
     <main
-      className="heirloom-app"
+      className={`heirloom-app ${portalOpen ? 'is-portal-open' : ''}`}
       data-testid="experience-nandini-birthday"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -86,8 +206,8 @@ function Home() {
             <p className="eyebrow" data-testid="text-opening-eyebrow">A small archive · 19 June</p>
             <h1 className="chapter-title" data-testid="text-opening-title">For<br />Nandini.</h1>
             <p className="chapter-copy small" data-testid="text-opening-copy">Some things are better opened slowly.</p>
-            <button className="double-button" type="button" onClick={next} data-testid="button-open-letter">
-              Open the letter
+            <button className="double-button ready-button" type="button" onClick={openPortal} data-testid="button-ready">
+              Ready
             </button>
           </div>
           <div className="chapter-footer">
@@ -126,10 +246,14 @@ function Home() {
 
         <section className={`chapter ${chapter === 3 ? 'is-active' : ''}`} aria-hidden={chapter !== 3} data-testid="chapter-portrait">
           <div className="watercolor" aria-label="Abstract watercolor portrait in slate blue, rust, and ochre" data-testid="artwork-abstract-portrait">
+            <div className="watercolor-halo" />
             <div className="watercolor-shape one" />
             <div className="watercolor-shape two" />
             <div className="watercolor-shape three" />
             <div className="watercolor-shape four" />
+            <div className="watercolor-drip drip-one" />
+            <div className="watercolor-drip drip-two" />
+            <img className="portrait-image" src={portraitImage} alt="Example watercolor portrait of a woman" data-testid="img-example-portrait" />
             <div className="portrait-line" />
           </div>
           <div className="ink-reveal" style={{ position: 'relative', zIndex: 1 }}>
@@ -162,6 +286,14 @@ function Home() {
         </section>
 
         <section className={`chapter chapter--dark final-message ${chapter === 5 ? 'is-active' : ''}`} aria-hidden={chapter !== 5} data-testid="chapter-birthday">
+          <div className="final-atmosphere" aria-hidden="true">
+            <span className="final-orb orb-one" />
+            <span className="final-orb orb-two" />
+            <span className="final-ring ring-one" />
+            <span className="final-ring ring-two" />
+            <span className="final-star star-one" />
+            <span className="final-star star-two" />
+          </div>
           <div className="ink-reveal">
             <p className="eyebrow" data-testid="text-birthday-eyebrow">Today, and every day after</p>
             <h2 className="chapter-title" data-testid="text-birthday-title">Happy<br />birthday,<br />Nandini.</h2>
@@ -174,6 +306,13 @@ function Home() {
             <span data-testid="text-birthday-note">Keep this close</span>
           </div>
         </section>
+      </div>
+
+      <div className="portal-overlay" aria-hidden={!portalOpen}>
+        <LiquidPortal active={portalOpen} />
+        <div className="portal-wash wash-one" />
+        <div className="portal-wash wash-two" />
+        <span className="portal-caption">A little magic, for you</span>
       </div>
 
       <nav className="progress-rail" aria-label="Letter chapters" data-testid="navigation-chapters">
