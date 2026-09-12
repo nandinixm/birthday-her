@@ -669,6 +669,114 @@ body {
 
 .chapter--dark .chapter-footer { color: #9eb5ba; }
 
+.liquid-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.chapter--recognition .ink-reveal {
+  position: relative;
+  z-index: 2;
+}
+
+.recognition-photo {
+  position: relative;
+  z-index: 2;
+  align-self: flex-end;
+  width: min(74vw, 320px);
+  margin-top: auto;
+  padding: 12px 12px 0;
+  transform: rotate(2.5deg);
+}
+
+.liquid-photo-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: .92;
+  border: 1px solid rgba(218,230,220,.48);
+  background:
+    radial-gradient(circle at 32% 24%, rgba(191,218,207,.27), transparent 35%),
+    rgba(13, 22, 29, .55);
+  box-shadow: 8px 10px 0 rgba(5, 10, 14, .18), 0 18px 40px rgba(3, 10, 16, .18);
+  isolation: isolate;
+}
+
+.liquid-photo-frame::before,
+.liquid-photo-frame::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  border: 1px solid rgba(207,225,215,.25);
+}
+.liquid-photo-frame::before { inset: 7px; transform: rotate(-2deg); }
+.liquid-photo-frame::after { inset: -3px 6px 5px -4px; transform: rotate(3deg); }
+
+.recognition-image {
+  position: absolute;
+  inset: 4% 5% 0;
+  z-index: 2;
+  width: 90%;
+  height: 96%;
+  object-fit: cover;
+  object-position: center 18%;
+  filter: url(#portrait-liquid-filter) saturate(.76) sepia(.08) contrast(.9);
+  mix-blend-mode: screen;
+  opacity: .86;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+  animation: recognitionFloat 8s ease-in-out infinite;
+}
+
+.liquid-photo-sheen {
+  position: absolute;
+  inset: -42% -22%;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(112deg, transparent 38%, rgba(198,225,214,.3) 47%, rgba(218,187,129,.16) 51%, transparent 61%);
+  transform: translateX(-62%) rotate(8deg);
+  mix-blend-mode: screen;
+  animation: liquidSheen 7s ease-in-out infinite;
+}
+
+.liquid-photo-blob {
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+  filter: blur(12px);
+  mix-blend-mode: screen;
+  opacity: .55;
+  animation: liquidBlob 9s ease-in-out infinite alternate;
+}
+.blob-a { width: 58%; aspect-ratio: 1; top: -17%; left: -12%; background: rgba(97,155,162,.6); }
+.blob-b { width: 65%; aspect-ratio: 1; right: -22%; bottom: -24%; background: rgba(166,81,72,.5); animation-delay: -3s; }
+
+.liquid-photo-ring {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  top: 50%;
+  width: 74%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(218,230,220,.26);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(-18deg);
+  pointer-events: none;
+  animation: liquidRing 10s linear infinite;
+}
+
+.recognition-caption {
+  margin: 13px 0 0 auto;
+  color: #b8cac4;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 21px;
+  letter-spacing: .01em;
+  transform: rotate(-3deg);
+}
+
 .footer-next {
   border: 0;
   color: inherit;
@@ -1029,6 +1137,10 @@ body {
 @keyframes haloPulse { 0%,100% { transform: scale(.96); opacity: .55; } 50% { transform: scale(1.04); opacity: .94; } }
 @keyframes portraitFloat { 0%,100% { transform: translate3d(0, 4px, 0) rotate(-1deg); } 50% { transform: translate3d(-5px, -5px, 0) rotate(1deg); } }
 @keyframes drip { 0%,100% { transform: scaleY(.82) translateY(-2px); opacity: .44; } 50% { transform: scaleY(1.08) translateY(8px); opacity: .8; } }
+@keyframes recognitionFloat { 0%,100% { transform: scale(1.02) translate3d(0, 5px, 0); } 50% { transform: scale(1.045) translate3d(-4px, -3px, 0); } }
+@keyframes liquidSheen { 0%, 17% { transform: translateX(-62%) rotate(8deg); opacity: 0; } 33% { opacity: .85; } 55%,100% { transform: translateX(62%) rotate(8deg); opacity: 0; } }
+@keyframes liquidBlob { from { transform: translate3d(-8px, 5px, 0) scale(.92); } to { transform: translate3d(13px, -9px, 0) scale(1.08); } }
+@keyframes liquidRing { from { transform: translate(-50%, -50%) rotate(-18deg); } to { transform: translate(-50%, -50%) rotate(342deg); } }
 @keyframes finalFloat { from { transform: translate3d(-12px, 8px, 0) scale(.92); } to { transform: translate3d(14px, -18px, 0) scale(1.08); } }
 @keyframes ringDrift { from { transform: rotate(-22deg) translateX(-4px); } to { transform: rotate(338deg) translateX(5px); } }
 @keyframes twinkle { 0%,100% { opacity: .32; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.4); } }
@@ -1039,10 +1151,12 @@ body {
   .chapter { padding-right: 13vw; }
   .watercolor { right: 6%; top: 13%; }
   .chapter--welcome .chapter-title { font-size: clamp(75px, 11vw, 140px); }
+  .recognition-photo { width: min(34vw, 360px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
   .chapter, .ink-reveal > * { transition-duration: .001ms !important; }
   .portal-overlay { display: none; }
+  .recognition-image { filter: saturate(.76) sepia(.08) contrast(.9); }
 }

@@ -200,6 +200,18 @@ function Home() {
       onWheel={handleWheel}
     >
       <div className="chapter-stage" data-testid="chapter-stage">
+        <svg className="liquid-defs" aria-hidden="true">
+          <defs>
+            <filter id="portrait-liquid-filter" x="-12%" y="-12%" width="124%" height="124%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.014 0.035" numOctaves="2" seed="7" result="liquid-noise">
+                <animate attributeName="baseFrequency" dur="8s" values="0.014 0.035;0.03 0.012;0.014 0.035" repeatCount="indefinite" />
+              </feTurbulence>
+              <feDisplacementMap in="SourceGraphic" in2="liquid-noise" scale="8" xChannelSelector="R" yChannelSelector="G">
+                <animate attributeName="scale" dur="6s" values="5;13;5" repeatCount="indefinite" />
+              </feDisplacementMap>
+            </filter>
+          </defs>
+        </svg>
         <section className={`chapter chapter--welcome ${chapter === 0 ? 'is-active' : ''}`} aria-hidden={chapter !== 0} data-testid="chapter-opening">
           <div className="welcome-mark" aria-hidden="true" />
           <div className="ink-reveal">
@@ -231,12 +243,22 @@ function Home() {
           </div>
         </section>
 
-        <section className={`chapter chapter--dark ${chapter === 2 ? 'is-active' : ''}`} aria-hidden={chapter !== 2} data-testid="chapter-recognition">
+        <section className={`chapter chapter--dark chapter--recognition ${chapter === 2 ? 'is-active' : ''}`} aria-hidden={chapter !== 2} data-testid="chapter-recognition">
           <div className="reveal-orbit" aria-hidden="true" />
           <div className="ink-reveal">
             <p className="eyebrow" data-testid="text-recognition-eyebrow">A fact I keep returning to</p>
             <p className="chapter-copy" data-testid="text-recognition-quote">“Out of eight billion people on this Earth, my heart only ever recognized you.”</p>
             <p className="chapter-copy small" data-testid="text-recognition-copy">Not loudly. Not all at once. Just with the quiet certainty of something finding its way home.</p>
+          </div>
+          <div className="recognition-photo" data-testid="recognition-photo">
+            <div className="liquid-photo-frame">
+              <div className="liquid-photo-blob blob-a" aria-hidden="true" />
+              <div className="liquid-photo-blob blob-b" aria-hidden="true" />
+              <div className="liquid-photo-sheen" aria-hidden="true" />
+              <img src={portraitImage} className="recognition-image" alt="Nandini, softly revealed through a liquid watercolor effect" data-testid="img-recognition-portrait" />
+              <span className="liquid-photo-ring" aria-hidden="true" />
+            </div>
+            <p className="recognition-caption" data-testid="text-recognition-caption">Somehow, it was always you.</p>
           </div>
           <div className="chapter-footer">
             <span data-testid="status-recognition-chapter">Chapter 03 / 06</span>
