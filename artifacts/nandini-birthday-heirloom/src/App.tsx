@@ -214,6 +214,17 @@ function Home() {
         </svg>
         <section className={`chapter chapter--welcome ${chapter === 0 ? 'is-active' : ''}`} aria-hidden={chapter !== 0} data-testid="chapter-opening">
           <div className="welcome-mark" aria-hidden="true" />
+          <div className="welcome-hearts" aria-hidden="true">
+            <svg className="welcome-heart heart-main" viewBox="0 0 100 90">
+              <path d="M50 82C42 73 11 54 8 31 5 10 30 3 44 18c4 4 6 10 6 10s2-6 6-10C70 3 95 10 92 31c-3 23-34 42-42 51Z" />
+            </svg>
+            <svg className="welcome-heart heart-small heart-small-one" viewBox="0 0 100 90">
+              <path d="M50 82C42 73 11 54 8 31 5 10 30 3 44 18c4 4 6 10 6 10s2-6 6-10C70 3 95 10 92 31c-3 23-34 42-42 51Z" />
+            </svg>
+            <svg className="welcome-heart heart-small heart-small-two" viewBox="0 0 100 90">
+              <path d="M50 82C42 73 11 54 8 31 5 10 30 3 44 18c4 4 6 10 6 10s2-6 6-10C70 3 95 10 92 31c-3 23-34 42-42 51Z" />
+            </svg>
+          </div>
           <div className="ink-reveal">
             <p className="eyebrow" data-testid="text-opening-eyebrow">A small archive · 19 June</p>
             <h1 className="chapter-title" data-testid="text-opening-title">For<br />Nandini.</h1>

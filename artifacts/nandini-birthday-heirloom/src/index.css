@@ -902,6 +902,61 @@ body {
 .welcome-mark::before { inset: 9px 20px -5px -16px; }
 .welcome-mark::after { inset: 22px -14px 14px 22px; }
 
+.welcome-hearts {
+  position: absolute;
+  top: 27%;
+  right: 11%;
+  width: 112px;
+  height: 132px;
+  color: rgba(167,94,75,.72);
+  pointer-events: none;
+}
+.welcome-heart {
+  position: absolute;
+  display: block;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.welcome-heart path {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+}
+.is-active .welcome-heart path {
+  animation: heartTrace 2s cubic-bezier(.25,.7,.25,1) forwards;
+}
+.heart-main {
+  top: 10px;
+  left: 20px;
+  width: 62px;
+  height: 56px;
+  transform: rotate(9deg);
+  animation: heartFloat 7s ease-in-out 2s infinite alternate;
+}
+.heart-small {
+  width: 26px;
+  height: 24px;
+  opacity: .64;
+}
+.heart-small-one {
+  top: 4px;
+  left: 78px;
+  transform: rotate(19deg);
+  animation: heartFloat 5.5s ease-in-out 2.25s infinite alternate-reverse;
+}
+.heart-small-two {
+  top: 87px;
+  left: 5px;
+  color: rgba(106,147,156,.72);
+  transform: rotate(-17deg);
+  animation: heartFloat 6.2s ease-in-out 2.5s infinite alternate;
+}
+.is-active .heart-small-one path { animation-delay: .18s; }
+.is-active .heart-small-two path { animation-delay: .34s; }
+
 .letter-rule {
   width: 100%;
   max-width: 490px;
@@ -1210,6 +1265,8 @@ body {
 @keyframes haloPulse { 0%,100% { transform: scale(.96); opacity: .55; } 50% { transform: scale(1.04); opacity: .94; } }
 @keyframes portraitFloat { 0%,100% { transform: translate3d(0, 4px, 0) rotate(-1deg); } 50% { transform: translate3d(-5px, -5px, 0) rotate(1deg); } }
 @keyframes drip { 0%,100% { transform: scaleY(.82) translateY(-2px); opacity: .44; } 50% { transform: scaleY(1.08) translateY(8px); opacity: .8; } }
+@keyframes heartTrace { to { stroke-dashoffset: 0; } }
+@keyframes heartFloat { from { translate: -2px 2px; } to { translate: 4px -6px; } }
 @keyframes recognitionFloat { 0%,100% { transform: scale(1.02) translate3d(0, 5px, 0); } 50% { transform: scale(1.045) translate3d(-4px, -3px, 0); } }
 @keyframes liquidSheen { 0%, 17% { transform: translateX(-62%) rotate(8deg); opacity: 0; } 33% { opacity: .85; } 55%,100% { transform: translateX(62%) rotate(8deg); opacity: 0; } }
 @keyframes liquidBlob { from { transform: translate3d(-8px, 5px, 0) scale(.92); } to { transform: translate3d(13px, -9px, 0) scale(1.08); } }
