@@ -7,25 +7,16 @@ import { mockupPreviewPlugin } from "./mockupPreviewPlugin";
 
 const rawPort = process.env.PORT;
 
-if (!rawPort) {
-  throw new Error(
-    "PORT environment variable is required but was not provided.",
-  );
-}
+const parsedPort = rawPort ? Number(rawPort) : NaN;
 
-const port = Number(rawPort);
+// PORT only configures the dev/preview server. Fall back to Vite's default so
+// production builds (e.g. on Vercel) succeed even when PORT is not provided.
+const port =
+  !Number.isNaN(parsedPort) && parsedPort > 0 ? parsedPort : 5173;
 
-if (Number.isNaN(port) || port <= 0) {
-  throw new Error(`Invalid PORT value: "${rawPort}"`);
-}
-
-const basePath = process.env.BASE_PATH;
-
-if (!basePath) {
-  throw new Error(
-    "BASE_PATH environment variable is required but was not provided.",
-  );
-}
+// BASE_PATH controls the public base path. Default to '/' when not provided so
+// static builds work in any hosting environment.
+const basePath = process.env.BASE_PATH || "/";
 
 export default defineConfig({
   base: basePath,
