@@ -897,25 +897,6 @@ body {
 .drip-one { height: 94px; left: 47%; top: 61%; animation-delay: -1.6s; }
 .drip-two { height: 68px; left: 62%; top: 66%; width: 8px; background: linear-gradient(180deg, rgba(106,147,156,.42), rgba(106,147,156,0)); animation-delay: -3.2s; }
 
-.portrait-line {
-  position: absolute;
-  left: 39%;
-  top: 13%;
-  width: 33%;
-  height: 70%;
-  border-left: 1.5px solid rgba(42,54,60,.55);
-  border-radius: 47% 53% 35% 65%;
-  transform: rotate(11deg);
-}
-.portrait-line::before, .portrait-line::after {
-  content: "";
-  position: absolute;
-  border: 1.5px solid rgba(42,54,60,.48);
-  border-radius: 50%;
-}
-.portrait-line::before { width: 59%; aspect-ratio: 1; top: 19%; left: 19%; border-bottom-color: transparent; transform: rotate(24deg); }
-.portrait-line::after { width: 44%; height: 20%; top: 45%; left: 35%; border-top-color: transparent; transform: rotate(-15deg); }
-
 .reveal-orbit {
   position: absolute;
   right: 5%;

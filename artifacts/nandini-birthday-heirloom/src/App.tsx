@@ -276,7 +276,6 @@ function Home() {
             <div className="watercolor-drip drip-one" />
             <div className="watercolor-drip drip-two" />
             <img className="portrait-image" src={portraitImage} alt="Nandini smiling in a red patterned outfit" data-testid="img-nandini-portrait" />
-            <div className="portrait-line" />
           </div>
           <div className="ink-reveal" style={{ position: 'relative', zIndex: 1 }}>
             <p className="eyebrow" data-testid="text-portrait-eyebrow">In another language</p>
