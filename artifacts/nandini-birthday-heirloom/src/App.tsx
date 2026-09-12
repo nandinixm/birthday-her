@@ -320,7 +320,10 @@ function Home() {
             <p className="eyebrow" data-testid="text-birthday-eyebrow">Today, and every day after</p>
             <h2 className="chapter-title" data-testid="text-birthday-title">Happy<br />birthday,<br />Nandini.</h2>
             <p className="chapter-copy small" data-testid="text-birthday-copy">May this next year meet you gently, then surprise you with how beautiful it becomes.</p>
-            <p className="signature" data-testid="text-birthday-signature">with all my love</p>
+            <p className="signature" data-testid="text-birthday-signature">
+              with all my love,<br />
+              <span className="signature-name">Manish</span>
+            </p>
             <button className="double-button" type="button" onClick={() => goTo(0)} data-testid="button-read-again">Read it again</button>
           </div>
           <div className="chapter-footer">
