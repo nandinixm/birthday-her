@@ -923,10 +923,10 @@ body {
 }
 .welcome-heart path {
   stroke-dasharray: 320;
-  stroke-dashoffset: 320;
+  stroke-dashoffset: 235;
 }
 .is-active .welcome-heart path {
-  animation: heartTrace 2s cubic-bezier(.25,.7,.25,1) forwards;
+  animation: heartTrace 15s cubic-bezier(.25,.7,.25,1) infinite;
 }
 .heart-main {
   top: 10px;
@@ -956,6 +956,65 @@ body {
 }
 .is-active .heart-small-one path { animation-delay: .18s; }
 .is-active .heart-small-two path { animation-delay: .34s; }
+
+.opening-keepsake {
+  position: absolute;
+  left: clamp(28px, 10vw, 110px);
+  bottom: 15%;
+  width: 184px;
+  height: 104px;
+  color: rgba(43,49,54,.34);
+  transform: rotate(-5deg);
+  pointer-events: none;
+}
+.opening-envelope {
+  position: absolute;
+  left: 0;
+  bottom: 14px;
+  width: 148px;
+  height: 76px;
+  border: 1px solid currentColor;
+  border-radius: 2px 5px 3px 4px;
+  opacity: .72;
+}
+.opening-envelope::before,
+.opening-envelope::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.opening-envelope::before {
+  inset: 0;
+  background:
+    linear-gradient(32deg, transparent 49%, currentColor 50%, transparent 51%) left bottom / 50% 100% no-repeat,
+    linear-gradient(-32deg, transparent 49%, currentColor 50%, transparent 51%) right bottom / 50% 100% no-repeat;
+  opacity: .56;
+}
+.opening-envelope::after {
+  inset: 4px -5px -4px 4px;
+  border: 1px solid currentColor;
+  border-radius: 3px 2px 5px 3px;
+  opacity: .5;
+  transform: rotate(1.5deg);
+}
+.opening-keepsake-label {
+  position: absolute;
+  top: 1px;
+  left: 22px;
+  font-family: var(--app-font-mono);
+  font-size: 8px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.opening-keepsake-date {
+  position: absolute;
+  right: 4px;
+  bottom: 0;
+  color: var(--rust);
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 22px;
+  transform: rotate(-4deg);
+}
 
 .letter-rule {
   width: 100%;
@@ -1132,28 +1191,6 @@ body {
 .star-one { top: 26%; right: 28%; }
 .star-two { top: 68%; right: 15%; animation-delay: -1.3s; }
 
-.progress-rail {
-  position: fixed;
-  z-index: 40;
-  top: 50%;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-  transform: translateY(-50%);
-}
-.progress-dot {
-  width: 7px;
-  height: 7px;
-  padding: 0;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  color: rgba(41,49,61,.43);
-  background: transparent;
-  transition: transform .2s ease, background-color .2s ease;
-}
-.progress-dot.is-current { color: var(--rust); background: currentColor; transform: scale(1.45); }
-
 .swipe-hint {
   position: fixed;
   z-index: 40;
@@ -1265,7 +1302,12 @@ body {
 @keyframes haloPulse { 0%,100% { transform: scale(.96); opacity: .55; } 50% { transform: scale(1.04); opacity: .94; } }
 @keyframes portraitFloat { 0%,100% { transform: translate3d(0, 4px, 0) rotate(-1deg); } 50% { transform: translate3d(-5px, -5px, 0) rotate(1deg); } }
 @keyframes drip { 0%,100% { transform: scaleY(.82) translateY(-2px); opacity: .44; } 50% { transform: scaleY(1.08) translateY(8px); opacity: .8; } }
-@keyframes heartTrace { to { stroke-dashoffset: 0; } }
+@keyframes heartTrace {
+  0%, 8% { stroke-dashoffset: 235; opacity: .38; }
+  42% { stroke-dashoffset: 0; opacity: .82; }
+  68% { stroke-dashoffset: 0; opacity: .82; }
+  92%, 100% { stroke-dashoffset: 235; opacity: .38; }
+}
 @keyframes heartFloat { from { translate: -2px 2px; } to { translate: 4px -6px; } }
 @keyframes recognitionFloat { 0%,100% { transform: scale(1.02) translate3d(0, 5px, 0); } 50% { transform: scale(1.045) translate3d(-4px, -3px, 0); } }
 @keyframes liquidSheen { 0%, 17% { transform: translateX(-62%) rotate(8deg); opacity: 0; } 33% { opacity: .85; } 55%,100% { transform: translateX(62%) rotate(8deg); opacity: 0; } }

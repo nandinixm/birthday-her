@@ -145,6 +145,13 @@ function Home() {
       goTo(1);
     }, 1360);
   }, [goTo, portalOpen]);
+  const advance = useCallback(() => {
+    if (chapter === 0) {
+      openPortal();
+      return;
+    }
+    next();
+  }, [chapter, next, openPortal]);
 
   const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
     touchStart.current = event.changedTouches[0]?.clientY ?? null;
@@ -155,14 +162,14 @@ function Home() {
     const distance = (event.changedTouches[0]?.clientY ?? 0) - touchStart.current;
     touchStart.current = null;
     if (Math.abs(distance) < 40) return;
-    if (distance < 0) next();
+    if (distance < 0) advance();
     else previous();
   };
 
   const handleWheel = (event: WheelEvent<HTMLElement>) => {
     if (wheelLock.current || Math.abs(event.deltaY) < 12) return;
     wheelLock.current = true;
-    if (event.deltaY > 0) next();
+    if (event.deltaY > 0) advance();
     else previous();
     window.setTimeout(() => { wheelLock.current = false; }, 760);
   };
@@ -171,7 +178,7 @@ function Home() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === ' ') {
         event.preventDefault();
-        next();
+        advance();
       }
       if (event.key === 'ArrowUp' || event.key === 'PageUp') {
         event.preventDefault();
@@ -180,16 +187,7 @@ function Home() {
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [next, previous]);
-
-  const chapters = [
-    { id: 'opening', label: 'Opening' },
-    { id: 'letter', label: 'A letter' },
-    { id: 'recognition', label: 'Recognition' },
-    { id: 'portrait', label: 'Portrait' },
-    { id: 'memories', label: 'Little things' },
-    { id: 'birthday', label: 'Birthday' },
-  ];
+  }, [advance, previous]);
 
   return (
     <main
@@ -229,9 +227,11 @@ function Home() {
             <p className="eyebrow" data-testid="text-opening-eyebrow">TO MY FAVORITE PERSON • 24th December</p>
             <h1 className="chapter-title" data-testid="text-opening-title">For You.</h1>
             <p className="chapter-copy small" data-testid="text-opening-copy">A few things I’ve been holding in my heart.</p>
-            <button className="double-button ready-button" type="button" onClick={openPortal} data-testid="button-ready">
-              Ready
-            </button>
+          </div>
+          <div className="opening-keepsake" aria-hidden="true">
+            <span className="opening-envelope" />
+            <span className="opening-keepsake-label">for you</span>
+            <span className="opening-keepsake-date">24 · 12</span>
           </div>
           <div className="chapter-footer">
             <span data-testid="status-opening-chapter">Chapter 01 / 06</span>
@@ -353,19 +353,6 @@ function Home() {
         <span className="portal-caption">turning the page</span>
       </div>
 
-      <nav className="progress-rail" aria-label="Letter chapters" data-testid="navigation-chapters">
-        {chapters.map((item, index) => (
-          <button
-            key={item.id}
-            className={`progress-dot ${chapter === index ? 'is-current' : ''}`}
-            type="button"
-            aria-label={`Go to ${item.label}`}
-            aria-current={chapter === index ? 'step' : undefined}
-            onClick={() => goTo(index)}
-            data-testid={`button-chapter-${item.id}`}
-          />
-        ))}
-      </nav>
       <p className="swipe-hint" data-testid="text-swipe-hint">Swipe up to continue</p>
     </main>
   );
