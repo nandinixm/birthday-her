@@ -828,9 +828,9 @@ body {
 }
 
 .chapter--portrait .watercolor {
-  left: 2%;
+  left: 8%;
   right: auto;
-  top: 42%;
+  top: 37%;
   width: min(86vw, 500px);
   z-index: 2;
 }
@@ -1195,18 +1195,73 @@ body {
   padding-top: 24px;
 }
 .memory-note {
+  position: relative;
+  isolation: isolate;
   min-height: 125px;
-  padding: 16px 14px;
-  border: 1px solid rgba(43,49,54,.33);
-  background: rgba(244,235,215,.35);
-  box-shadow: 5px 6px 0 rgba(43,49,54,.07);
+  padding: 20px 16px 18px;
+  border: 0;
+  color: rgba(43,43,38,.88);
+  background:
+    radial-gradient(circle at 18% 24%, rgba(255,255,255,.24), transparent 28%),
+    repeating-linear-gradient(92deg, rgba(86,69,47,.025) 0 1px, transparent 1px 5px),
+    #e7d4af;
+  clip-path: polygon(2% 5%, 11% 2%, 21% 4%, 33% 1%, 46% 3%, 59% 1%, 74% 4%, 88% 2%, 98% 5%, 97% 91%, 89% 95%, 74% 93%, 61% 96%, 48% 93%, 34% 96%, 20% 93%, 9% 96%, 2% 92%);
+  filter: drop-shadow(5px 7px 0 rgba(43,49,54,.12));
   font-family: var(--app-font-serif);
-  font-size: 20px;
-  line-height: 1.04;
+  font-size: clamp(16px, 4.4vw, 20px);
+  line-height: 1.08;
+  animation: paperSettle 8s ease-in-out infinite alternate;
 }
-.memory-note:nth-child(2) { transform: rotate(2.5deg) translateY(12px); }
-.memory-note:nth-child(3) { transform: rotate(-2deg); }
-.memory-note:nth-child(4) { transform: rotate(1deg) translateY(8px); }
+.memory-note::before,
+.memory-note::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.memory-note::before {
+  inset: 7px 9px;
+  z-index: -1;
+  border-top: 1px solid rgba(71,59,43,.12);
+  border-bottom: 1px solid rgba(71,59,43,.08);
+  transform: rotate(-1.2deg);
+}
+.memory-note::after {
+  right: 13px;
+  bottom: 11px;
+  width: 30px;
+  height: 18px;
+  border-right: 1px solid rgba(139,75,59,.24);
+  border-bottom: 1px solid rgba(139,75,59,.24);
+  transform: rotate(-13deg);
+}
+.memory-note:nth-child(1) {
+  background:
+    radial-gradient(circle at 75% 18%, rgba(255,255,255,.2), transparent 26%),
+    repeating-linear-gradient(92deg, rgba(86,69,47,.025) 0 1px, transparent 1px 5px),
+    #e7d4af;
+  transform: rotate(-1.8deg) translate(-2px, 5px);
+}
+.memory-note:nth-child(2) {
+  background:
+    radial-gradient(circle at 22% 72%, rgba(255,255,255,.2), transparent 30%),
+    repeating-linear-gradient(84deg, rgba(71,62,48,.028) 0 1px, transparent 1px 6px),
+    #d6c8a9;
+  transform: rotate(3deg) translate(7px, 4px);
+}
+.memory-note:nth-child(3) {
+  background:
+    radial-gradient(circle at 68% 28%, rgba(255,255,255,.28), transparent 28%),
+    repeating-linear-gradient(98deg, rgba(93,70,58,.024) 0 1px, transparent 1px 5px),
+    #eadfca;
+  transform: rotate(-4.5deg) translate(-4px, -1px);
+}
+.memory-note:nth-child(4) {
+  background:
+    radial-gradient(circle at 28% 18%, rgba(255,255,255,.2), transparent 28%),
+    repeating-linear-gradient(88deg, rgba(58,76,65,.03) 0 1px, transparent 1px 5px),
+    #cfd4c5;
+  transform: rotate(1.8deg) translate(5px, 10px);
+}
 
 .final-message {
   display: flex;
@@ -1401,6 +1456,7 @@ body {
   92%, 100% { stroke-dashoffset: 235; opacity: .38; }
 }
 @keyframes heartFloat { from { translate: -2px 2px; } to { translate: 4px -6px; } }
+@keyframes paperSettle { from { translate: -1px 1px; } to { translate: 2px -2px; } }
 @keyframes portraitPetalFall {
   0% {
     opacity: 0;
@@ -1442,9 +1498,9 @@ body {
 @media (min-width: 700px) {
   .chapter { padding-right: 13vw; }
   .chapter--portrait .watercolor {
-    left: 10%;
+    left: 16%;
     right: auto;
-    top: 42%;
+    top: 37%;
     width: min(54vw, 520px);
   }
   .chapter--welcome .chapter-title { font-size: clamp(75px, 11vw, 140px); }
