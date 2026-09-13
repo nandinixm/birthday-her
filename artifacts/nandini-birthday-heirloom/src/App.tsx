@@ -226,26 +226,26 @@ function Home() {
             </svg>
           </div>
           <div className="ink-reveal">
-            <p className="eyebrow" data-testid="text-opening-eyebrow">A small archive · 19 June</p>
-            <h1 className="chapter-title" data-testid="text-opening-title">For<br />Nandini.</h1>
-            <p className="chapter-copy small" data-testid="text-opening-copy">Some things are better opened slowly.</p>
+            <p className="eyebrow" data-testid="text-opening-eyebrow">TO MY FAVORITE PERSON • 24th December</p>
+            <h1 className="chapter-title" data-testid="text-opening-title">For You.</h1>
+            <p className="chapter-copy small" data-testid="text-opening-copy">A few things I’ve been holding in my heart.</p>
             <button className="double-button ready-button" type="button" onClick={openPortal} data-testid="button-ready">
               Ready
             </button>
           </div>
           <div className="chapter-footer">
             <span data-testid="status-opening-chapter">Chapter 01 / 06</span>
-            <span data-testid="text-opening-note">Made for one person</span>
+            <span data-testid="text-opening-note">YOURS ALWAYS</span>
           </div>
         </section>
 
         <section className={`chapter ${chapter === 1 ? 'is-active' : ''}`} aria-hidden={chapter !== 1} data-testid="chapter-letter">
           <div className="ink-reveal">
             <p className="eyebrow" data-testid="text-letter-eyebrow">The first page</p>
-            <h2 className="chapter-title" data-testid="text-letter-title">Dear<br />Nandini,</h2>
+            <h2 className="chapter-title" data-testid="text-letter-title">mi amor,</h2>
             <div className="letter-rule" aria-hidden="true" />
             <p className="chapter-copy small" data-testid="text-letter-copy">
-              <span className="letter-initial">I</span> wanted to give you something that could not be wrapped, put in a bag, or finished in a single glance.
+              <span className="letter-initial">I</span> am not always the best at saying everything I feel out loud. So I wanted to put it all down here instead. Just a quiet place to remind you exactly how much you mean to me.
             </p>
           </div>
           <div className="letter-keepsake" aria-hidden="true">
@@ -264,9 +264,9 @@ function Home() {
         <section className={`chapter chapter--dark chapter--recognition ${chapter === 2 ? 'is-active' : ''}`} aria-hidden={chapter !== 2} data-testid="chapter-recognition">
           <div className="reveal-orbit" aria-hidden="true" />
           <div className="ink-reveal">
-            <p className="eyebrow" data-testid="text-recognition-eyebrow">A fact I keep returning to</p>
-            <p className="chapter-copy" data-testid="text-recognition-quote">“Out of eight billion people on this Earth, my heart only ever recognized you.”</p>
-            <p className="chapter-copy small" data-testid="text-recognition-copy">Not loudly. Not all at once. Just with the quiet certainty of something finding its way home.</p>
+            <p className="eyebrow" data-testid="text-recognition-eyebrow">A SIMPLE TRUTH</p>
+            <p className="chapter-copy" data-testid="text-recognition-quote">“No matter how many people I cross paths with, my eyes and heart will only ever look for you.”</p>
+            <p className="chapter-copy small" data-testid="text-recognition-copy">You didn&apos;t just walk into my life—you became the best part of it.</p>
           </div>
           <div className="recognition-photo" data-testid="recognition-photo">
             <div className="liquid-photo-frame">
@@ -289,9 +289,9 @@ function Home() {
             <img className="portrait-image" src={portraitImage} alt="Nandini smiling in a red patterned outfit" data-testid="img-nandini-portrait" />
           </div>
           <div className="ink-reveal" style={{ position: 'relative', zIndex: 1 }}>
-            <p className="eyebrow" data-testid="text-portrait-eyebrow">In another language</p>
-            <h2 className="chapter-title" data-testid="text-portrait-title">You are<br />a whole sky.</h2>
-            <p className="chapter-copy small" data-testid="text-portrait-copy">The kind that changes colour without asking permission.</p>
+            <p className="eyebrow" data-testid="text-portrait-eyebrow">IN SIMPLE WORDS</p>
+            <h2 className="chapter-title" data-testid="text-portrait-title">One smile from you changes everything.</h2>
+            <p className="chapter-copy small" data-testid="text-portrait-copy">No matter how chaotic my day gets, just thinking of you brings me instant peace.</p>
           </div>
           <div className="chapter-footer">
             <span data-testid="status-portrait-chapter">Chapter 04 / 06</span>
@@ -301,15 +301,15 @@ function Home() {
 
         <section className={`chapter ${chapter === 4 ? 'is-active' : ''}`} aria-hidden={chapter !== 4} data-testid="chapter-memories">
           <div className="ink-reveal">
-            <p className="eyebrow" data-testid="text-memories-eyebrow">The things I hope you know</p>
-            <h2 className="chapter-title" data-testid="text-memories-title">Keep these.</h2>
+            <p className="eyebrow" data-testid="text-memories-eyebrow">FEW THINGS TO REMEMBER</p>
+            <h2 className="chapter-title" data-testid="text-memories-title">Promises from my heart.</h2>
             <p className="chapter-copy small" data-testid="text-memories-copy">Small truths, pressed between the pages for later.</p>
           </div>
           <div className="memory-grid" data-testid="memory-grid">
-            <div className="memory-note" data-testid="memory-note-01">You make ordinary days feel chosen.</div>
-            <div className="memory-note" data-testid="memory-note-02">Your softness is not a weakness.</div>
-            <div className="memory-note" data-testid="memory-note-03">You are allowed to become.</div>
-            <div className="memory-note" data-testid="memory-note-04">There is so much more ahead.</div>
+            <div className="memory-note" data-testid="memory-note-01">Your happiness will always be my main priority.</div>
+            <div className="memory-note" data-testid="memory-note-02">My future only looks beautiful because you are in it.</div>
+            <div className="memory-note" data-testid="memory-note-03">No matter where life takes us, I’m right here with you.</div>
+            <div className="memory-note" data-testid="memory-note-04">I don&apos;t just want you for today; I am looking forward to a whole life with you.</div>
           </div>
           <div className="chapter-footer">
             <span data-testid="status-memories-chapter">Chapter 05 / 06</span>
@@ -327,9 +327,9 @@ function Home() {
             <span className="final-star star-two" />
           </div>
           <div className="ink-reveal">
-            <p className="eyebrow" data-testid="text-birthday-eyebrow">Today, and every day after</p>
+            <p className="eyebrow" data-testid="text-birthday-eyebrow">TO MY FAVORITE PERSON</p>
             <h2 className="chapter-title" data-testid="text-birthday-title">Happy<br />birthday,<br />Nandini.</h2>
-            <p className="chapter-copy small" data-testid="text-birthday-copy">May this next year meet you gently, then surprise you with how beautiful it becomes.</p>
+            <p className="chapter-copy small" data-testid="text-birthday-copy">I wish you the best of health, endless happiness, and all the success you deserve. May every dream you chase this turn into reality. May you got lots of reasons to smile, and whatever you are wishing for, I hope it comes true.</p>
             <p className="signature" data-testid="text-birthday-signature">
               with all my love,<br />
               <span className="signature-name">Manish</span>
