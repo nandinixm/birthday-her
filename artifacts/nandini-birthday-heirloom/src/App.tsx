@@ -284,7 +284,17 @@ function Home() {
           </div>
         </section>
 
-        <section className={`chapter ${chapter === 3 ? 'is-active' : ''}`} aria-hidden={chapter !== 3} data-testid="chapter-portrait">
+        <section className={`chapter chapter--portrait ${chapter === 3 ? 'is-active' : ''}`} aria-hidden={chapter !== 3} data-testid="chapter-portrait">
+          <div className="portrait-petals" aria-hidden="true">
+            <span className="portrait-petal petal-one" />
+            <span className="portrait-petal petal-two" />
+            <span className="portrait-petal petal-three" />
+            <span className="portrait-petal petal-four" />
+            <span className="portrait-petal petal-five" />
+            <span className="portrait-petal petal-six" />
+            <span className="portrait-petal petal-seven" />
+            <span className="portrait-petal petal-eight" />
+          </div>
           <div className="watercolor" aria-label="Watercolor portrait of Nandini with a soft paint-dissolve effect" data-testid="artwork-nandini-portrait">
             <img className="portrait-image" src={portraitImage} alt="Nandini smiling in a red patterned outfit" data-testid="img-nandini-portrait" />
           </div>
