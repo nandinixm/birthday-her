@@ -512,6 +512,7 @@ body {
   background: var(--paper);
   font-family: var(--app-font-sans);
   touch-action: none;
+  animation: heirloomBoot 1.05s cubic-bezier(.22,.72,.2,1) both;
 }
 
 .heirloom-app::before {
@@ -1268,13 +1269,20 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255,255,255,.62), transparent 24%),
+    radial-gradient(circle at 92% 80%, rgba(219,88,103,.3), transparent 31%),
+    linear-gradient(145deg, #fff1d6 0%, #f8d1b9 50%, #eda0a0 100%);
+  color: #632f3e;
 }
-.final-message .chapter-title { max-width: 570px; color: #e8dfc9; }
-.final-message .chapter-copy { color: #c7d5d2; }
-.final-message .ink-reveal { position: relative; z-index: 2; }
+.final-message .chapter-title { max-width: 570px; color: #632f3e; }
+.final-message .chapter-copy { color: #734552; }
+.final-message .eyebrow { color: #a6535b; }
+.final-message .chapter-footer { color: rgba(105,57,67,.68); }
+.final-message .ink-reveal { position: relative; z-index: 2; width: min(100%, 620px); }
 .signature {
   margin-top: 38px;
-  color: #d6a08c;
+  color: #aa5b63;
   font-family: 'Shadows Into Light', cursive;
   font-size: 38px;
   line-height: .94;
@@ -1283,60 +1291,198 @@ body {
 .signature-name {
   display: inline-block;
   margin-left: 30px;
-  color: #e4b3a0;
+  color: #8d4351;
   font-size: 1.08em;
   transform: rotate(-3deg);
 }
 
-.final-atmosphere {
+.birthday-atmosphere {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+  z-index: 1;
 }
-.final-orb, .final-ring, .final-star {
+
+.age-balloon {
   position: absolute;
+  top: 5%;
+  right: 11%;
+  width: 132px;
+  height: 154px;
+  border: 1px solid rgba(138,63,72,.34);
+  border-radius: 51% 49% 47% 53% / 48% 46% 54% 52%;
+  background:
+    radial-gradient(ellipse at 30% 22%, rgba(255,255,255,.82) 0 8%, transparent 22%),
+    linear-gradient(145deg, #f58a88 0%, #d95d70 56%, #b74356 100%);
+  box-shadow: 10px 13px 0 rgba(155,70,78,.12), inset -12px -16px 0 rgba(139,45,67,.1);
+  transform: rotate(-7deg);
+}
+.age-balloon::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 13px;
+  height: 13px;
+  background: #bc4a5a;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  transform: translateX(-50%);
+}
+.age-balloon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -104px;
+  width: 1px;
+  height: 100px;
+  background: rgba(114,62,71,.46);
+  transform: rotate(3deg);
+  transform-origin: top center;
+}
+.age-number {
+  position: absolute;
+  inset: 18px 0 0;
+  color: #fff1d6;
+  font-family: var(--app-font-serif);
+  font-size: 82px;
+  line-height: 1;
+  letter-spacing: -.12em;
+  text-align: center;
+  text-shadow: 2px 3px 0 rgba(143,49,68,.2);
+}
+.age-balloon-shine {
+  position: absolute;
+  left: 27px;
+  top: 27px;
+  width: 13px;
+  height: 31px;
+  border-radius: 50%;
+  background: rgba(255,246,226,.54);
+  transform: rotate(28deg);
+}
+.is-active .age-balloon { animation: ageBob 5.5s ease-in-out infinite; }
+
+.birthday-balloon {
+  position: absolute;
+  bottom: -24%;
   display: block;
+  width: 44px;
+  height: 58px;
+  border: 1px solid rgba(104,59,69,.24);
+  border-radius: 50% 50% 46% 54% / 48% 49% 51% 52%;
+  opacity: 0;
+  transform-origin: 50% 100%;
+  animation: balloonRise var(--balloon-duration, 13s) linear infinite;
 }
-.final-orb {
+.birthday-balloon::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  width: 8px;
+  height: 17px;
   border-radius: 50%;
-  filter: blur(1px);
-  opacity: .58;
-  animation: finalFloat 7s ease-in-out infinite alternate;
+  background: rgba(255,249,232,.54);
+  transform: rotate(28deg);
 }
-.orb-one {
-  width: 180px;
-  height: 180px;
-  top: 8%;
-  right: -50px;
-  background: radial-gradient(circle at 35% 35%, rgba(170,202,198,.62), rgba(74,111,119,.1) 60%, transparent 72%);
+.birthday-balloon::after {
+  content: "";
+  position: absolute;
+  top: 99%;
+  left: 50%;
+  width: 1px;
+  height: 135px;
+  background: rgba(100,64,71,.42);
+  transform: rotate(3deg);
+  transform-origin: top center;
 }
-.orb-two {
-  width: 260px;
-  height: 260px;
-  left: -140px;
-  bottom: -70px;
-  background: radial-gradient(circle at 60% 40%, rgba(165,82,70,.48), transparent 67%);
-  animation-delay: -2.4s;
+.balloon-coral { background: linear-gradient(145deg, #ff9e89, #df5e66); }
+.balloon-teal { background: linear-gradient(145deg, #8fd3cf, #439eaa); }
+.balloon-gold { background: linear-gradient(145deg, #ffe39a, #e9ad4f); }
+.balloon-pink { background: linear-gradient(145deg, #f8b8c4, #d96c8a); }
+.balloon-red { background: linear-gradient(145deg, #e97873, #b83f58); }
+.balloon-lilac { background: linear-gradient(145deg, #d8bbdf, #967ab5); }
+.balloon-one { left: 4%; --balloon-x: 22px; --balloon-x2: -8px; --balloon-duration: 12.5s; animation-delay: -3.2s; }
+.balloon-two { left: 20%; width: 34px; height: 47px; --balloon-x: -18px; --balloon-x2: 30px; --balloon-duration: 15s; animation-delay: -8.4s; }
+.balloon-three { left: 39%; width: 39px; height: 53px; --balloon-x: 28px; --balloon-x2: -16px; --balloon-duration: 13.5s; animation-delay: -5.7s; }
+.balloon-four { right: 28%; width: 35px; height: 48px; --balloon-x: -30px; --balloon-x2: 12px; --balloon-duration: 14.5s; animation-delay: -10.5s; }
+.balloon-five { right: 13%; --balloon-x: 18px; --balloon-x2: -22px; --balloon-duration: 12s; animation-delay: -1.8s; }
+.balloon-six { right: 2%; width: 36px; height: 49px; --balloon-x: -20px; --balloon-x2: 22px; --balloon-duration: 16s; animation-delay: -7.3s; }
+
+.balloon-pop {
+  position: absolute;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  color: #bd5361;
+  opacity: 0;
+  transform: scale(.2);
+  animation: balloonPop 9.5s ease-in-out infinite;
 }
-.final-ring {
-  border: 1px solid rgba(203,226,220,.28);
+.balloon-pop::before {
+  content: "✦";
+  position: absolute;
+  inset: -8px 0 0;
+  font-family: Georgia, serif;
+  font-size: 28px;
+  line-height: 1;
+  text-align: center;
+}
+.balloon-pop::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border: 1px dashed currentColor;
   border-radius: 50%;
-  transform: rotate(-22deg);
-  animation: ringDrift 12s linear infinite;
+  transform: rotate(22deg);
 }
-.ring-one { width: 220px; height: 110px; top: 18%; right: -55px; }
-.ring-two { width: 150px; height: 70px; bottom: 16%; left: -44px; animation-direction: reverse; animation-duration: 16s; }
-.final-star {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #e3c98f;
-  box-shadow: 0 0 15px rgba(227,201,143,.72);
-  animation: twinkle 2.8s ease-in-out infinite;
+.pop-one { left: 13%; top: 33%; animation-delay: -2.1s; color: #bd5361; }
+.pop-two { right: 21%; top: 44%; animation-delay: -6.8s; color: #d39a33; }
+.pop-three { left: 46%; top: 24%; animation-delay: -4.6s; color: #4a9da3; }
+
+.reread-button {
+  position: relative;
+  display: block;
+  min-height: 52px;
+  margin: 42px 0 0 auto;
+  padding: 13px 24px 12px;
+  border: 1px solid #a54f59;
+  border-radius: 999px 8px 999px 10px;
+  color: #733744;
+  background: rgba(255,244,218,.72);
+  font-family: var(--app-font-mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transform: rotate(1.5deg);
+  box-shadow: 4px 5px 0 rgba(118,54,66,.16);
+  transition: transform .25s ease, background-color .2s ease, box-shadow .2s ease;
 }
-.star-one { top: 26%; right: 28%; }
-.star-two { top: 68%; right: 15%; animation-delay: -1.3s; }
+.reread-button::after {
+  content: "";
+  position: absolute;
+  inset: 4px -5px -4px 4px;
+  border: 1px solid currentColor;
+  border-radius: 8px 999px 10px 999px;
+  opacity: .5;
+  pointer-events: none;
+}
+.reread-button:hover {
+  background: #fff2cf;
+  box-shadow: 2px 3px 0 rgba(118,54,66,.14);
+  transform: translate(-2px,-3px) rotate(1.5deg);
+}
+.reread-button:active {
+  box-shadow: none;
+  transform: translate(1px,1px) rotate(1.5deg);
+}
+.is-active .ink-reveal .reread-button {
+  transform: rotate(1.5deg);
+  transition: opacity .65s ease, transform .25s ease, background-color .2s ease, box-shadow .2s ease;
+}
+.is-active .ink-reveal .reread-button:hover { transform: translate(-2px,-3px) rotate(1.5deg); }
+.is-active .ink-reveal .reread-button:active { transform: translate(1px,1px) rotate(1.5deg); }
 
 .swipe-hint {
   position: fixed;
@@ -1446,6 +1592,11 @@ body {
 @keyframes drift { from { transform: translate3d(-4px, 5px, 0) rotate(-4deg); } to { transform: translate3d(5px, -6px, 0) rotate(5deg); } }
 @keyframes orbit { to { transform: rotate(360deg); } }
 @keyframes breathe { 0%,100% { opacity: .38; } 50% { opacity: .8; } }
+@keyframes heirloomBoot {
+  0% { opacity: 0; transform: scale(.988); filter: blur(2px); }
+  55% { opacity: .82; }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
 @keyframes haloPulse { 0%,100% { transform: scale(.96); opacity: .55; } 50% { transform: scale(1.04); opacity: .94; } }
 @keyframes portraitFloat { 0%,100% { transform: translate3d(0, 4px, 0) rotate(-1deg); } 50% { transform: translate3d(-5px, -5px, 0) rotate(1deg); } }
 @keyframes drip { 0%,100% { transform: scaleY(.82) translateY(-2px); opacity: .44; } 50% { transform: scaleY(1.08) translateY(8px); opacity: .8; } }
@@ -1457,6 +1608,39 @@ body {
 }
 @keyframes heartFloat { from { translate: -2px 2px; } to { translate: 4px -6px; } }
 @keyframes paperSettle { from { translate: -1px 1px; } to { translate: 2px -2px; } }
+@keyframes ageBob {
+  0%, 100% { transform: rotate(-7deg) translate3d(0, 0, 0); }
+  50% { transform: rotate(-3deg) translate3d(-5px, -8px, 0); }
+}
+@keyframes balloonRise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 110vh, 0) rotate(-9deg) scale(.82);
+  }
+  10% { opacity: .88; }
+  55% {
+    opacity: .92;
+    transform: translate3d(var(--balloon-x), 0, 0) rotate(8deg) scale(1);
+  }
+  70% {
+    opacity: .88;
+    transform: translate3d(var(--balloon-x2), -34vh, 0) rotate(-6deg) scale(1);
+  }
+  78% {
+    opacity: 0;
+    transform: translate3d(var(--balloon-x2), -40vh, 0) rotate(18deg) scale(.24);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--balloon-x), -116vh, 0) rotate(24deg) scale(.7);
+  }
+}
+@keyframes balloonPop {
+  0%, 57% { opacity: 0; transform: scale(.2) rotate(-18deg); }
+  63% { opacity: .95; transform: scale(1) rotate(8deg); }
+  70% { opacity: 0; transform: scale(1.75) rotate(25deg); }
+  100% { opacity: 0; transform: scale(.2) rotate(42deg); }
+}
 @keyframes portraitPetalFall {
   0% {
     opacity: 0;
@@ -1477,9 +1661,6 @@ body {
 @keyframes liquidSheen { 0%, 17% { transform: translateX(-62%) rotate(8deg); opacity: 0; } 33% { opacity: .85; } 55%,100% { transform: translateX(62%) rotate(8deg); opacity: 0; } }
 @keyframes liquidBlob { from { transform: translate3d(-8px, 5px, 0) scale(.92); } to { transform: translate3d(13px, -9px, 0) scale(1.08); } }
 @keyframes liquidRing { from { transform: translate(-50%, -50%) rotate(-18deg); } to { transform: translate(-50%, -50%) rotate(342deg); } }
-@keyframes finalFloat { from { transform: translate3d(-12px, 8px, 0) scale(.92); } to { transform: translate3d(14px, -18px, 0) scale(1.08); } }
-@keyframes ringDrift { from { transform: rotate(-22deg) translateX(-4px); } to { transform: rotate(338deg) translateX(5px); } }
-@keyframes twinkle { 0%,100% { opacity: .32; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.4); } }
 @keyframes washBurst { 0% { transform: scale(.05) translate(-50%, -50%); opacity: 0; } 32% { opacity: .75; } 100% { transform: scale(4.2) translate(-4%, 3%); opacity: .2; } }
 @keyframes portalCaption { 0% { opacity: 0; transform: translate(-50%, 10px); } 24% { opacity: 1; transform: translate(-50%, 0); } 78% { opacity: 1; } 100% { opacity: 0; } }
 @keyframes watercolorDissolve {
@@ -1510,6 +1691,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
   .chapter, .ink-reveal > * { transition-duration: .001ms !important; }
+  .heirloom-app { animation: none; }
   .portal-overlay { display: none; }
   .recognition-image { filter: saturate(.76) sepia(.08) contrast(.9); }
 }

@@ -327,14 +327,21 @@ function Home() {
           </div>
         </section>
 
-        <section className={`chapter chapter--dark final-message ${chapter === 5 ? 'is-active' : ''}`} aria-hidden={chapter !== 5} data-testid="chapter-birthday">
-          <div className="final-atmosphere" aria-hidden="true">
-            <span className="final-orb orb-one" />
-            <span className="final-orb orb-two" />
-            <span className="final-ring ring-one" />
-            <span className="final-ring ring-two" />
-            <span className="final-star star-one" />
-            <span className="final-star star-two" />
+        <section className={`chapter final-message ${chapter === 5 ? 'is-active' : ''}`} aria-hidden={chapter !== 5} data-testid="chapter-birthday">
+          <div className="birthday-atmosphere" aria-hidden="true">
+            <div className="age-balloon">
+              <span className="age-number">15</span>
+              <span className="age-balloon-shine" />
+            </div>
+            <span className="birthday-balloon balloon-coral balloon-one" />
+            <span className="birthday-balloon balloon-teal balloon-two" />
+            <span className="birthday-balloon balloon-gold balloon-three" />
+            <span className="birthday-balloon balloon-pink balloon-four" />
+            <span className="birthday-balloon balloon-red balloon-five" />
+            <span className="birthday-balloon balloon-lilac balloon-six" />
+            <span className="balloon-pop pop-one" />
+            <span className="balloon-pop pop-two" />
+            <span className="balloon-pop pop-three" />
           </div>
           <div className="ink-reveal">
             <p className="eyebrow" data-testid="text-birthday-eyebrow">TO MY FAVORITE PERSON</p>
@@ -344,7 +351,7 @@ function Home() {
               with all my love,<br />
               <span className="signature-name">Manish</span>
             </p>
-            <button className="double-button" type="button" onClick={() => goTo(0)} data-testid="button-read-again">Read it again</button>
+            <button className="reread-button" type="button" onClick={() => goTo(0)} data-testid="button-read-again">Re-read</button>
           </div>
           <div className="chapter-footer">
             <span data-testid="status-birthday-chapter">Chapter 06 / 06</span>
