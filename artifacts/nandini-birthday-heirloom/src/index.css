@@ -753,7 +753,7 @@ body {
 }
 
 .chapter--recognition.is-active .recognition-image {
-  animation: recognitionInkSpread 1.55s cubic-bezier(.2,.72,.12,1) .12s both;
+  animation: recognitionInkSpread 3.6s cubic-bezier(.2,.72,.12,1) .18s both;
 }
 
 .recognition-ink-bleed {
@@ -778,7 +778,7 @@ body {
 }
 
 .chapter--recognition.is-active .recognition-ink-bleed {
-  animation: recognitionInkWash 1.4s cubic-bezier(.2,.7,.18,1) both;
+  animation: recognitionInkWash 3.35s cubic-bezier(.2,.7,.18,1) both;
 }
 
 .recognition-caption {
