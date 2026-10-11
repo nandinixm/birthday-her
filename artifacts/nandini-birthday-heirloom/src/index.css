@@ -710,6 +710,20 @@ body {
   transform: rotate(2.5deg);
 }
 
+.recognition-photo::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 18px 17px -7px 11px;
+  background:
+    radial-gradient(ellipse at 28% 35%, rgba(199,116,104,.36), transparent 57%),
+    radial-gradient(ellipse at 72% 58%, rgba(218,176,117,.28), transparent 60%);
+  filter: blur(13px);
+  opacity: .68;
+  transform: rotate(-4deg);
+  pointer-events: none;
+}
+
 .recognition-frame {
   position: relative;
   overflow: hidden;
@@ -741,44 +755,11 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: center 24%;
-  filter: saturate(.96) contrast(.98);
-  -webkit-mask-image: radial-gradient(ellipse, #000 0 47%, transparent 70%);
-  mask-image: radial-gradient(ellipse, #000 0 47%, transparent 70%);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: 280% 280%;
-  mask-size: 280% 280%;
+  opacity: 1;
 }
 
 .chapter--recognition.is-active .recognition-image {
-  animation: recognitionInkSpread 3.6s cubic-bezier(.2,.72,.12,1) .18s both;
-}
-
-.recognition-ink-bleed {
-  position: absolute;
-  inset: -8%;
-  z-index: 3;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 45%, rgba(91,44,49,.48), rgba(144,66,69,.26) 34%, transparent 70%),
-    radial-gradient(ellipse at 31% 62%, rgba(159,82,61,.24), transparent 56%),
-    radial-gradient(ellipse at 68% 32%, rgba(86,73,65,.2), transparent 51%);
-  mix-blend-mode: multiply;
-  opacity: 0;
-  -webkit-mask-image: radial-gradient(ellipse, #000 0 43%, transparent 68%);
-  mask-image: radial-gradient(ellipse, #000 0 43%, transparent 68%);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: 0 0;
-  mask-size: 0 0;
-}
-
-.chapter--recognition.is-active .recognition-ink-bleed {
-  animation: recognitionInkWash 3.35s cubic-bezier(.2,.7,.18,1) both;
+  animation: recognitionPhotoEnter .72s cubic-bezier(.2,.76,.24,1) both;
 }
 
 .recognition-caption {
@@ -1632,15 +1613,9 @@ body {
     transform: translate3d(calc(var(--petal-x) * -0.45), 112vh, 0) rotate(370deg) scale(.78);
   }
 }
-@keyframes recognitionInkSpread {
-  0% { -webkit-mask-size: 0 0; mask-size: 0 0; }
-  68% { -webkit-mask-size: 205% 205%; mask-size: 205% 205%; }
-  100% { -webkit-mask-size: 280% 280%; mask-size: 280% 280%; }
-}
-@keyframes recognitionInkWash {
-  0% { opacity: .72; -webkit-mask-size: 0 0; mask-size: 0 0; }
-  52% { opacity: .36; -webkit-mask-size: 180% 180%; mask-size: 180% 180%; }
-  100% { opacity: 0; -webkit-mask-size: 280% 280%; mask-size: 280% 280%; }
+@keyframes recognitionPhotoEnter {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 @keyframes washBurst { 0% { transform: scale(.05) translate(-50%, -50%); opacity: 0; } 32% { opacity: .75; } 100% { transform: scale(4.2) translate(-4%, 3%); opacity: .2; } }
 @keyframes portalCaption { 0% { opacity: 0; transform: translate(-50%, 10px); } 24% { opacity: 1; transform: translate(-50%, 0); } 78% { opacity: 1; } 100% { opacity: 0; } }
@@ -1675,9 +1650,6 @@ body {
   .heirloom-app { animation: none; }
   .portal-overlay { display: none; }
   .recognition-image {
-    filter: saturate(.96) contrast(.98);
-    -webkit-mask-image: none;
-    mask-image: none;
+    opacity: 1;
   }
-  .recognition-ink-bleed { display: none; }
 }

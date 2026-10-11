@@ -259,7 +259,6 @@ function Home() {
           <div className="recognition-photo" data-testid="recognition-photo">
             <div className="recognition-frame">
               <img src={recognitionPortraitImage} className="recognition-image" alt="Watercolor portrait of Nandini in a red sari" data-testid="img-recognition-portrait" />
-              <span className="recognition-ink-bleed" aria-hidden="true" />
             </div>
             <p className="recognition-caption" data-testid="text-recognition-caption">Somehow, it was always you.</p>
           </div>
