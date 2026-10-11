@@ -695,14 +695,6 @@ body {
 
 .chapter--dark .chapter-footer { color: #9eb5ba; }
 
-.liquid-defs {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
 .chapter--recognition .ink-reveal {
   position: relative;
   z-index: 2;
@@ -718,80 +710,75 @@ body {
   transform: rotate(2.5deg);
 }
 
-.liquid-photo-frame {
+.recognition-frame {
   position: relative;
   overflow: hidden;
-  aspect-ratio: .92;
-  border: 1px solid rgba(218,230,220,.48);
+  aspect-ratio: .76;
+  border: 1px solid rgba(218,230,220,.56);
   background:
-    radial-gradient(circle at 32% 24%, rgba(191,218,207,.27), transparent 35%),
-    rgba(13, 22, 29, .55);
+    radial-gradient(circle at 30% 24%, rgba(255,246,224,.9), transparent 42%),
+    #e9d8c7;
   box-shadow: 8px 10px 0 rgba(5, 10, 14, .18), 0 18px 40px rgba(3, 10, 16, .18);
   isolation: isolate;
 }
 
-.liquid-photo-frame::before,
-.liquid-photo-frame::after {
+.recognition-frame::before,
+.recognition-frame::after {
   content: "";
   position: absolute;
   z-index: 5;
   pointer-events: none;
-  border: 1px solid rgba(207,225,215,.25);
+  border: 1px solid rgba(207,225,215,.32);
 }
-.liquid-photo-frame::before { inset: 7px; transform: rotate(-2deg); }
-.liquid-photo-frame::after { inset: -3px 6px 5px -4px; transform: rotate(3deg); }
+.recognition-frame::before { inset: 7px; transform: rotate(-2deg); }
+.recognition-frame::after { inset: -3px 6px 5px -4px; transform: rotate(3deg); }
 
 .recognition-image {
   position: absolute;
-  inset: 4% 5% 0;
+  inset: 0;
   z-index: 2;
-  width: 90%;
-  height: 96%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center 18%;
-  filter: url(#portrait-liquid-filter) saturate(.76) sepia(.08) contrast(.9);
-  mix-blend-mode: screen;
-  opacity: .86;
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
-  animation: recognitionFloat 8s ease-in-out infinite;
+  object-position: center 24%;
+  filter: saturate(.96) contrast(.98);
+  -webkit-mask-image: radial-gradient(ellipse, #000 0 47%, transparent 70%);
+  mask-image: radial-gradient(ellipse, #000 0 47%, transparent 70%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 280% 280%;
+  mask-size: 280% 280%;
 }
 
-.liquid-photo-sheen {
+.chapter--recognition.is-active .recognition-image {
+  animation: recognitionInkSpread 1.55s cubic-bezier(.2,.72,.12,1) .12s both;
+}
+
+.recognition-ink-bleed {
   position: absolute;
-  inset: -42% -22%;
-  z-index: 4;
+  inset: -8%;
+  z-index: 3;
   pointer-events: none;
-  background: linear-gradient(112deg, transparent 38%, rgba(198,225,214,.3) 47%, rgba(218,187,129,.16) 51%, transparent 61%);
-  transform: translateX(-62%) rotate(8deg);
-  mix-blend-mode: screen;
-  animation: liquidSheen 7s ease-in-out infinite;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(91,44,49,.48), rgba(144,66,69,.26) 34%, transparent 70%),
+    radial-gradient(ellipse at 31% 62%, rgba(159,82,61,.24), transparent 56%),
+    radial-gradient(ellipse at 68% 32%, rgba(86,73,65,.2), transparent 51%);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  -webkit-mask-image: radial-gradient(ellipse, #000 0 43%, transparent 68%);
+  mask-image: radial-gradient(ellipse, #000 0 43%, transparent 68%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 0 0;
+  mask-size: 0 0;
 }
 
-.liquid-photo-blob {
-  position: absolute;
-  z-index: 1;
-  border-radius: 50%;
-  filter: blur(12px);
-  mix-blend-mode: screen;
-  opacity: .55;
-  animation: liquidBlob 9s ease-in-out infinite alternate;
-}
-.blob-a { width: 58%; aspect-ratio: 1; top: -17%; left: -12%; background: rgba(97,155,162,.6); }
-.blob-b { width: 65%; aspect-ratio: 1; right: -22%; bottom: -24%; background: rgba(166,81,72,.5); animation-delay: -3s; }
-
-.liquid-photo-ring {
-  position: absolute;
-  z-index: 6;
-  left: 50%;
-  top: 50%;
-  width: 74%;
-  aspect-ratio: 1;
-  border: 1px solid rgba(218,230,220,.26);
-  border-radius: 50%;
-  transform: translate(-50%, -50%) rotate(-18deg);
-  pointer-events: none;
-  animation: liquidRing 10s linear infinite;
+.chapter--recognition.is-active .recognition-ink-bleed {
+  animation: recognitionInkWash 1.4s cubic-bezier(.2,.7,.18,1) both;
 }
 
 .recognition-caption {
@@ -946,18 +933,6 @@ body {
   background: rgba(246,203,207,.86);
   animation-delay: -2.2s;
 }
-
-.reveal-orbit {
-  position: absolute;
-  right: 5%;
-  bottom: 13%;
-  width: 130px;
-  height: 130px;
-  border: 1px solid rgba(166,193,196,.36);
-  border-radius: 50%;
-  animation: orbit 14s linear infinite;
-}
-.reveal-orbit::before { content: ""; position: absolute; inset: 17px; border: 1px solid rgba(166,193,196,.23); border-radius: 50%; }
 
 .ink-reveal > * {
   opacity: 0;
@@ -1657,10 +1632,16 @@ body {
     transform: translate3d(calc(var(--petal-x) * -0.45), 112vh, 0) rotate(370deg) scale(.78);
   }
 }
-@keyframes recognitionFloat { 0%,100% { transform: scale(1.02) translate3d(0, 5px, 0); } 50% { transform: scale(1.045) translate3d(-4px, -3px, 0); } }
-@keyframes liquidSheen { 0%, 17% { transform: translateX(-62%) rotate(8deg); opacity: 0; } 33% { opacity: .85; } 55%,100% { transform: translateX(62%) rotate(8deg); opacity: 0; } }
-@keyframes liquidBlob { from { transform: translate3d(-8px, 5px, 0) scale(.92); } to { transform: translate3d(13px, -9px, 0) scale(1.08); } }
-@keyframes liquidRing { from { transform: translate(-50%, -50%) rotate(-18deg); } to { transform: translate(-50%, -50%) rotate(342deg); } }
+@keyframes recognitionInkSpread {
+  0% { -webkit-mask-size: 0 0; mask-size: 0 0; }
+  68% { -webkit-mask-size: 205% 205%; mask-size: 205% 205%; }
+  100% { -webkit-mask-size: 280% 280%; mask-size: 280% 280%; }
+}
+@keyframes recognitionInkWash {
+  0% { opacity: .72; -webkit-mask-size: 0 0; mask-size: 0 0; }
+  52% { opacity: .36; -webkit-mask-size: 180% 180%; mask-size: 180% 180%; }
+  100% { opacity: 0; -webkit-mask-size: 280% 280%; mask-size: 280% 280%; }
+}
 @keyframes washBurst { 0% { transform: scale(.05) translate(-50%, -50%); opacity: 0; } 32% { opacity: .75; } 100% { transform: scale(4.2) translate(-4%, 3%); opacity: .2; } }
 @keyframes portalCaption { 0% { opacity: 0; transform: translate(-50%, 10px); } 24% { opacity: 1; transform: translate(-50%, 0); } 78% { opacity: 1; } 100% { opacity: 0; } }
 @keyframes watercolorDissolve {
@@ -1693,5 +1674,10 @@ body {
   .chapter, .ink-reveal > * { transition-duration: .001ms !important; }
   .heirloom-app { animation: none; }
   .portal-overlay { display: none; }
-  .recognition-image { filter: saturate(.76) sepia(.08) contrast(.9); }
+  .recognition-image {
+    filter: saturate(.96) contrast(.98);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .recognition-ink-bleed { display: none; }
 }

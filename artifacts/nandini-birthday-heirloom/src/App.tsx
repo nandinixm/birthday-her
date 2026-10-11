@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode, type TouchEvent, type WheelEvent } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import portraitImage from '@assets/IMG-20260911-WA3730_1789193689811.jpg';
+import recognitionPortraitImage from '@assets/IMG-20260912-WA9245_(1)_1789268518860.jpg';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -198,18 +199,6 @@ function Home() {
       onWheel={handleWheel}
     >
       <div className="chapter-stage" data-testid="chapter-stage">
-        <svg className="liquid-defs" aria-hidden="true">
-          <defs>
-            <filter id="portrait-liquid-filter" x="-12%" y="-12%" width="124%" height="124%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.014 0.035" numOctaves="2" seed="7" result="liquid-noise">
-                <animate attributeName="baseFrequency" dur="8s" values="0.014 0.035;0.03 0.012;0.014 0.035" repeatCount="indefinite" />
-              </feTurbulence>
-              <feDisplacementMap in="SourceGraphic" in2="liquid-noise" scale="8" xChannelSelector="R" yChannelSelector="G">
-                <animate attributeName="scale" dur="6s" values="5;13;5" repeatCount="indefinite" />
-              </feDisplacementMap>
-            </filter>
-          </defs>
-        </svg>
         <section className={`chapter chapter--welcome ${chapter === 0 ? 'is-active' : ''}`} aria-hidden={chapter !== 0} data-testid="chapter-opening">
           <div className="welcome-mark" aria-hidden="true" />
           <div className="welcome-hearts" aria-hidden="true">
@@ -262,19 +251,15 @@ function Home() {
         </section>
 
         <section className={`chapter chapter--dark chapter--recognition ${chapter === 2 ? 'is-active' : ''}`} aria-hidden={chapter !== 2} data-testid="chapter-recognition">
-          <div className="reveal-orbit" aria-hidden="true" />
           <div className="ink-reveal">
             <p className="eyebrow" data-testid="text-recognition-eyebrow">A SIMPLE TRUTH</p>
             <p className="chapter-copy" data-testid="text-recognition-quote">“No matter how many people I cross paths with, my eyes and heart will only ever look for you.”</p>
             <p className="chapter-copy small" data-testid="text-recognition-copy">You didn&apos;t just walk into my life—you became the best part of it.</p>
           </div>
           <div className="recognition-photo" data-testid="recognition-photo">
-            <div className="liquid-photo-frame">
-              <div className="liquid-photo-blob blob-a" aria-hidden="true" />
-              <div className="liquid-photo-blob blob-b" aria-hidden="true" />
-              <div className="liquid-photo-sheen" aria-hidden="true" />
-              <img src={portraitImage} className="recognition-image" alt="Nandini, softly revealed through a liquid watercolor effect" data-testid="img-recognition-portrait" />
-              <span className="liquid-photo-ring" aria-hidden="true" />
+            <div className="recognition-frame">
+              <img src={recognitionPortraitImage} className="recognition-image" alt="Watercolor portrait of Nandini in a red sari" data-testid="img-recognition-portrait" />
+              <span className="recognition-ink-bleed" aria-hidden="true" />
             </div>
             <p className="recognition-caption" data-testid="text-recognition-caption">Somehow, it was always you.</p>
           </div>
