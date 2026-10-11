@@ -1387,12 +1387,12 @@ body {
 .balloon-red { background: linear-gradient(145deg, #d99a92, #bb7076 58%, #985461); }
 .balloon-lilac { background: linear-gradient(145deg, #cbbfd0, #a08faa 58%, #796c8a); }
 
-.balloon-flight-one { left: 4%; width: 36px; height: 49px; --balloon-x: 18px; --balloon-x2: -9px; }
-.balloon-flight-two { left: 20%; width: 31px; height: 44px; --balloon-x: -16px; --balloon-x2: 23px; }
-.balloon-flight-three { left: 39%; width: 34px; height: 47px; --balloon-x: 23px; --balloon-x2: -13px; }
-.balloon-flight-four { right: 28%; width: 31px; height: 44px; --balloon-x: -23px; --balloon-x2: 12px; }
-.balloon-flight-five { right: 13%; width: 36px; height: 49px; --balloon-x: 14px; --balloon-x2: -18px; }
-.balloon-flight-six { right: 3%; width: 32px; height: 45px; --balloon-x: -15px; --balloon-x2: 19px; }
+.balloon-flight-1 { left: 4%; width: 36px; height: 49px; --balloon-x: 18px; --balloon-x2: -9px; }
+.balloon-flight-2 { left: 20%; width: 31px; height: 44px; --balloon-x: -16px; --balloon-x2: 23px; }
+.balloon-flight-3 { left: 39%; width: 34px; height: 47px; --balloon-x: 23px; --balloon-x2: -13px; }
+.balloon-flight-4 { right: 28%; width: 31px; height: 44px; --balloon-x: -23px; --balloon-x2: 12px; }
+.balloon-flight-5 { right: 13%; width: 36px; height: 49px; --balloon-x: 14px; --balloon-x2: -18px; }
+.balloon-flight-6 { right: 3%; width: 32px; height: 45px; --balloon-x: -15px; --balloon-x2: 19px; }
 
 .balloon-flight.is-popping .birthday-balloon {
   animation: balloonBodyPop 26s ease-in-out infinite paused;
