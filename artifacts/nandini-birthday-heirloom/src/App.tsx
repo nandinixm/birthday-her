@@ -15,119 +15,8 @@ import {
 
 const queryClient = new QueryClient();
 
-function LiquidPortal({ active }: { active: boolean }) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    if (!active || !canvasRef.current) return;
-
-    const canvas = canvasRef.current;
-    const gl = canvas.getContext('webgl', { alpha: true, antialias: false });
-    if (!gl) return;
-
-    const vertexSource = `
-      attribute vec2 position;
-      varying vec2 uv;
-      void main() {
-        uv = position * 0.5 + 0.5;
-        gl_Position = vec4(position, 0.0, 1.0);
-      }
-    `;
-    const fragmentSource = `
-      precision mediump float;
-      varying vec2 uv;
-      uniform float uTime;
-      uniform float uProgress;
-
-      float hash(vec2 p) {
-        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
-      }
-
-      void main() {
-        vec2 centered = uv - 0.5;
-        float distanceFromCenter = length(centered);
-        float grain = hash(floor(uv * 18.0 + uTime * 0.4));
-        float wave = sin(distanceFromCenter * 30.0 - uTime * 7.0 + grain * 4.0) * 0.024;
-        float radius = uProgress * 0.92;
-        float bloom = 1.0 - smoothstep(radius - 0.22, radius + 0.05, distanceFromCenter + wave);
-        float edge = 1.0 - smoothstep(0.02, 0.14, abs(distanceFromCenter - radius + wave));
-        float burst = smoothstep(0.18, 0.0, distanceFromCenter) * (0.25 + grain * 0.55);
-        vec3 cream = vec3(0.91, 0.86, 0.74);
-        vec3 lake = vec3(0.20, 0.42, 0.48);
-        vec3 rust = vec3(0.64, 0.25, 0.18);
-        vec3 ochre = vec3(0.88, 0.62, 0.24);
-        vec3 ink = mix(lake, rust, smoothstep(0.1, 0.7, uv.x + sin(uTime) * 0.18));
-        ink = mix(ink, ochre, smoothstep(0.32, 0.9, grain + uv.y * 0.3));
-        vec3 color = mix(cream, ink, clamp(bloom * 0.9 + edge * 0.76 + burst, 0.0, 1.0));
-        float alpha = clamp(bloom * 0.88 + edge * 0.7 + burst, 0.0, 1.0);
-        gl_FragColor = vec4(color, alpha);
-      }
-    `;
-
-    const compile = (type: number, source: string) => {
-      const shader = gl.createShader(type);
-      if (!shader) return null;
-      gl.shaderSource(shader, source);
-      gl.compileShader(shader);
-      return gl.getShaderParameter(shader, gl.COMPILE_STATUS) ? shader : null;
-    };
-    const vertexShader = compile(gl.VERTEX_SHADER, vertexSource);
-    const fragmentShader = compile(gl.FRAGMENT_SHADER, fragmentSource);
-    if (!vertexShader || !fragmentShader) return;
-
-    const program = gl.createProgram();
-    if (!program) return;
-    gl.attachShader(program, vertexShader);
-    gl.attachShader(program, fragmentShader);
-    gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
-
-    const buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-    gl.useProgram(program);
-    const position = gl.getAttribLocation(program, 'position');
-    gl.enableVertexAttribArray(position);
-    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
-    const timeLocation = gl.getUniformLocation(program, 'uTime');
-    const progressLocation = gl.getUniformLocation(program, 'uProgress');
-    const startedAt = performance.now();
-    let animationFrame = 0;
-
-    const resize = () => {
-      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = Math.floor(window.innerWidth * ratio);
-      canvas.height = Math.floor(window.innerHeight * ratio);
-      gl.viewport(0, 0, canvas.width, canvas.height);
-    };
-    const render = (now: number) => {
-      const elapsed = now - startedAt;
-      const progress = Math.min(elapsed / 1180, 1);
-      gl.uniform1f(timeLocation, elapsed / 1000);
-      gl.uniform1f(progressLocation, progress);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      if (progress < 1) animationFrame = requestAnimationFrame(render);
-    };
-    resize();
-    window.addEventListener('resize', resize);
-    animationFrame = requestAnimationFrame(render);
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animationFrame);
-      gl.deleteBuffer(buffer);
-      gl.deleteProgram(program);
-      gl.deleteShader(vertexShader);
-      gl.deleteShader(fragmentShader);
-    };
-  }, [active]);
-
-  return <canvas ref={canvasRef} className="liquid-portal-canvas" aria-hidden="true" />;
-}
-
 function Home() {
   const [chapter, setChapter] = useState(0);
-  const [portalOpen, setPortalOpen] = useState(false);
   const touchStart = useRef<number | null>(null);
   const wheelLock = useRef(false);
   const totalChapters = 6;
@@ -138,21 +27,7 @@ function Home() {
 
   const next = useCallback(() => goTo(chapter + 1), [chapter, goTo]);
   const previous = useCallback(() => goTo(chapter - 1), [chapter, goTo]);
-  const openPortal = useCallback(() => {
-    if (portalOpen) return;
-    setPortalOpen(true);
-    window.setTimeout(() => {
-      setPortalOpen(false);
-      goTo(1);
-    }, 1360);
-  }, [goTo, portalOpen]);
-  const advance = useCallback(() => {
-    if (chapter === 0) {
-      openPortal();
-      return;
-    }
-    next();
-  }, [chapter, next, openPortal]);
+  const advance = next;
 
   const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
     touchStart.current = event.changedTouches[0]?.clientY ?? null;
@@ -192,7 +67,7 @@ function Home() {
 
   return (
     <main
-      className={`heirloom-app ${portalOpen ? 'is-portal-open' : ''}`}
+      className="heirloom-app"
       data-testid="experience-nandini-birthday"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -204,6 +79,7 @@ function Home() {
           <div className="welcome-hearts" aria-hidden="true">
             <svg className="welcome-heart heart-main" viewBox="0 0 100 90">
               <path d="M50 82C42 73 11 54 8 31 5 10 30 3 44 18c4 4 6 10 6 10s2-6 6-10C70 3 95 10 92 31c-3 23-34 42-42 51Z" />
+              <text className="welcome-heart-initial" x="50" y="51" textAnchor="middle" dominantBaseline="middle">N</text>
             </svg>
             <svg className="welcome-heart heart-small heart-small-one" viewBox="0 0 100 90">
               <path d="M50 82C42 73 11 54 8 31 5 10 30 3 44 18c4 4 6 10 6 10s2-6 6-10C70 3 95 10 92 31c-3 23-34 42-42 51Z" />
@@ -332,7 +208,7 @@ function Home() {
             <h2 className="chapter-title" data-testid="text-birthday-title">Happy<br />birthday,<br />Nandini.</h2>
             <p className="chapter-copy small" data-testid="text-birthday-copy">I wish you the best of health, endless happiness, and all the success you deserve. May every dream you chase this turn into reality. May you got lots of reasons to smile, and whatever you are wishing for, I hope it comes true.</p>
             <p className="signature" data-testid="text-birthday-signature">
-              with all my love,<br />
+              <span className="signature-note">with all my love,</span><br />
               <span className="signature-name">Manish</span>
             </p>
             <button className="reread-button" type="button" onClick={() => goTo(0)} data-testid="button-read-again">Re-read</button>
@@ -342,16 +218,6 @@ function Home() {
             <span data-testid="text-birthday-note">Keep this close</span>
           </div>
         </section>
-      </div>
-
-      <div className="portal-overlay" aria-hidden={!portalOpen}>
-        <LiquidPortal active={portalOpen} />
-        <div className="portal-wash wash-one" />
-        <div className="portal-wash wash-two" />
-        <div className="portal-wash wash-three" />
-        <div className="portal-wash wash-four" />
-        <div className="portal-rinse" />
-        <span className="portal-caption">turning the page</span>
       </div>
 
       <p className="swipe-hint" data-testid="text-swipe-hint">Swipe up to continue</p>

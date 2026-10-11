@@ -975,7 +975,16 @@ body {
   stroke-dashoffset: 235;
 }
 .is-active .welcome-heart path {
-  animation: heartTrace 15s cubic-bezier(.25,.7,.25,1) infinite;
+  animation: heartTrace 8.5s cubic-bezier(.25,.7,.25,1) infinite;
+}
+.welcome-heart .welcome-heart-initial {
+  fill: currentColor;
+  stroke: none;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 25px;
+  font-weight: 400;
+  opacity: .88;
+  pointer-events: none;
 }
 .heart-main {
   top: 10px;
@@ -983,7 +992,7 @@ body {
   width: 62px;
   height: 56px;
   transform: rotate(9deg);
-  animation: heartFloat 7s ease-in-out 2s infinite alternate;
+  animation: heartFloat 4.6s ease-in-out 1.1s infinite alternate;
 }
 .heart-small {
   width: 26px;
@@ -994,14 +1003,14 @@ body {
   top: 4px;
   left: 78px;
   transform: rotate(19deg);
-  animation: heartFloat 5.5s ease-in-out 2.25s infinite alternate-reverse;
+  animation: heartFloat 4s ease-in-out 1.25s infinite alternate-reverse;
 }
 .heart-small-two {
   top: 87px;
   left: 5px;
   color: rgba(106,147,156,.72);
   transform: rotate(-17deg);
-  animation: heartFloat 6.2s ease-in-out 2.5s infinite alternate;
+  animation: heartFloat 4.4s ease-in-out 1.4s infinite alternate;
 }
 .is-active .heart-small-one path { animation-delay: .18s; }
 .is-active .heart-small-two path { animation-delay: .34s; }
@@ -1237,19 +1246,27 @@ body {
 .final-message .chapter-footer { color: rgba(105,57,67,.68); }
 .final-message .ink-reveal { position: relative; z-index: 2; width: min(100%, 620px); }
 .signature {
-  margin-top: 38px;
+  margin-top: 50px;
   color: #aa5b63;
   font-family: 'Shadows Into Light', cursive;
-  font-size: 38px;
-  line-height: .94;
-  transform: rotate(-4deg);
+  font-size: clamp(19px, 5.3vw, 23px);
+  line-height: .92;
+  transform: translateY(14px) rotate(-4deg);
+}
+.signature-note {
+  display: inline-block;
+  font-size: .82em;
 }
 .signature-name {
   display: inline-block;
   margin-left: 30px;
   color: #8d4351;
-  font-size: 1.08em;
+  font-size: clamp(38px, 9.5vw, 48px);
+  line-height: 1;
   transform: rotate(-3deg);
+}
+.final-message.is-active .ink-reveal .signature {
+  transform: translateY(14px) rotate(-4deg);
 }
 
 .birthday-atmosphere {
@@ -1401,44 +1418,44 @@ body {
   position: relative;
   display: block;
   min-height: 52px;
-  margin: 42px 0 0 auto;
-  padding: 13px 24px 12px;
-  border: 1px solid #a54f59;
-  border-radius: 999px 8px 999px 10px;
-  color: #733744;
-  background: rgba(255,244,218,.72);
-  font-family: var(--app-font-mono);
-  font-size: 10px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  transform: rotate(1.5deg);
-  box-shadow: 4px 5px 0 rgba(118,54,66,.16);
+  margin: 58px 0 0 auto;
+  padding: 10px 25px 12px;
+  border: 1px solid #783946;
+  border-radius: 6px 11px 5px 9px;
+  color: #fff1d6;
+  background: #8d4351;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 22px;
+  letter-spacing: .04em;
+  text-transform: none;
+  transform: translateY(22px) rotate(-2deg);
+  box-shadow: 4px 5px 0 rgba(118,54,66,.2);
   transition: transform .25s ease, background-color .2s ease, box-shadow .2s ease;
 }
 .reread-button::after {
   content: "";
   position: absolute;
-  inset: 4px -5px -4px 4px;
-  border: 1px solid currentColor;
-  border-radius: 8px 999px 10px 999px;
-  opacity: .5;
+  inset: 4px -4px -4px 4px;
+  border: 1px dashed rgba(255,241,214,.56);
+  border-radius: 5px 8px 4px 7px;
+  opacity: .72;
   pointer-events: none;
 }
 .reread-button:hover {
-  background: #fff2cf;
-  box-shadow: 2px 3px 0 rgba(118,54,66,.14);
-  transform: translate(-2px,-3px) rotate(1.5deg);
+  background: #793b47;
+  box-shadow: 2px 3px 0 rgba(118,54,66,.18);
+  transform: translate(-2px,19px) rotate(-2deg);
 }
 .reread-button:active {
   box-shadow: none;
-  transform: translate(1px,1px) rotate(1.5deg);
+  transform: translate(1px,24px) rotate(-2deg);
 }
 .is-active .ink-reveal .reread-button {
-  transform: rotate(1.5deg);
+  transform: translateY(22px) rotate(-2deg);
   transition: opacity .65s ease, transform .25s ease, background-color .2s ease, box-shadow .2s ease;
 }
-.is-active .ink-reveal .reread-button:hover { transform: translate(-2px,-3px) rotate(1.5deg); }
-.is-active .ink-reveal .reread-button:active { transform: translate(1px,1px) rotate(1.5deg); }
+.is-active .ink-reveal .reread-button:hover { transform: translate(-2px,19px) rotate(-2deg); }
+.is-active .ink-reveal .reread-button:active { transform: translate(1px,24px) rotate(-2deg); }
 
 .swipe-hint {
   position: fixed;
@@ -1454,99 +1471,7 @@ body {
   animation: breathe 2.8s ease-in-out infinite;
 }
 
- .portal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  background: #e8dfc9;
-  transition: opacity .16s ease, visibility 0s linear .2s;
-}
-.is-portal-open .portal-overlay {
-  opacity: 1;
-  visibility: visible;
-  transition-delay: 0s;
-}
-.liquid-portal-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  mix-blend-mode: multiply;
-  opacity: .08;
-}
-.portal-wash {
-  position: absolute;
-  border-radius: 62% 38% 54% 46% / 48% 56% 44% 52%;
-  filter: blur(10px);
-  mix-blend-mode: multiply;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(.12) rotate(-12deg);
-  animation: watercolorDissolve 1.36s cubic-bezier(.2,.75,.2,1) both;
-}
-.wash-one {
-  width: 74vw;
-  height: 58vw;
-  left: 23%;
-  top: 42%;
-  background: rgba(173,91,75,.62);
-  animation-delay: -.04s;
-}
-.wash-two {
-  width: 62vw;
-  height: 94vw;
-  left: 75%;
-  top: 23%;
-  background: rgba(92,139,148,.52);
-  animation-delay: -.22s;
-}
-.wash-three {
-  width: 88vw;
-  height: 54vw;
-  left: 58%;
-  top: 77%;
-  background: rgba(197,153,72,.38);
-  animation-delay: -.38s;
-  filter: blur(15px);
-}
-.wash-four {
-  width: 54vw;
-  height: 68vw;
-  left: 25%;
-  top: 5%;
-  background: rgba(122,157,145,.34);
-  animation-delay: -.5s;
-  filter: blur(16px);
-}
-.portal-rinse {
-  position: absolute;
-  inset: -16%;
-  background:
-    radial-gradient(ellipse at 48% 50%, rgba(246,239,222,.14), transparent 34%),
-    rgba(232,223,201,.86);
-  opacity: 0;
-  transform: scale(.88);
-  animation: rinsePaper 1.36s ease both;
-}
-.portal-caption {
-  position: absolute;
-  left: 50%;
-  bottom: 13%;
-  color: rgba(41,49,61,.64);
-  font-family: var(--app-font-mono);
-  font-size: 9px;
-  letter-spacing: .19em;
-  text-transform: uppercase;
-  transform: translateX(-50%);
-  animation: portalCaption 1.18s ease both;
-}
-
 @keyframes drift { from { transform: translate3d(-4px, 5px, 0) rotate(-4deg); } to { transform: translate3d(5px, -6px, 0) rotate(5deg); } }
-@keyframes orbit { to { transform: rotate(360deg); } }
 @keyframes breathe { 0%,100% { opacity: .38; } 50% { opacity: .8; } }
 @keyframes heirloomBoot {
   0% { opacity: 0; transform: scale(.988); filter: blur(2px); }
@@ -1617,21 +1542,6 @@ body {
   0% { opacity: 0; transform: translateY(8px); }
   100% { opacity: 1; transform: translateY(0); }
 }
-@keyframes washBurst { 0% { transform: scale(.05) translate(-50%, -50%); opacity: 0; } 32% { opacity: .75; } 100% { transform: scale(4.2) translate(-4%, 3%); opacity: .2; } }
-@keyframes portalCaption { 0% { opacity: 0; transform: translate(-50%, 10px); } 24% { opacity: 1; transform: translate(-50%, 0); } 78% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes watercolorDissolve {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(.12) rotate(-12deg); }
-  18% { opacity: .78; }
-  58% { opacity: .62; transform: translate(-50%, -50%) scale(1.25) rotate(10deg); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.15) rotate(24deg); }
-}
-@keyframes rinsePaper {
-  0% { opacity: 0; transform: scale(.88); }
-  20% { opacity: .2; }
-  68% { opacity: .92; transform: scale(1.04); }
-  100% { opacity: .96; transform: scale(1); }
-}
-
 @media (min-width: 700px) {
   .chapter { padding-right: 13vw; }
   .chapter--portrait .watercolor {
@@ -1648,7 +1558,6 @@ body {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
   .chapter, .ink-reveal > * { transition-duration: .001ms !important; }
   .heirloom-app { animation: none; }
-  .portal-overlay { display: none; }
   .recognition-image {
     opacity: 1;
   }
