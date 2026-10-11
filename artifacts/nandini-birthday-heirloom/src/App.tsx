@@ -296,15 +296,15 @@ function Home() {
 
         <section className={`chapter ${chapter === 4 ? 'is-active' : ''}`} aria-hidden={chapter !== 4} data-testid="chapter-memories">
           <div className="ink-reveal">
-            <p className="eyebrow" data-testid="text-memories-eyebrow">FEW THINGS TO REMEMBER</p>
-            <h2 className="chapter-title" data-testid="text-memories-title">Promises from my heart.</h2>
+            <p className="eyebrow" data-testid="text-memories-eyebrow">A FEW THINGS TO KEEP</p>
+            <h2 className="chapter-title" data-testid="text-memories-title">Little things I hope you remember.</h2>
             <p className="chapter-copy small" data-testid="text-memories-copy">Small truths, pressed between the pages for later.</p>
           </div>
           <div className="memory-grid" data-testid="memory-grid">
-            <div className="memory-note" data-testid="memory-note-01">Your happiness will always be my main priority.</div>
-            <div className="memory-note" data-testid="memory-note-02">My future only looks beautiful because you are in it.</div>
-            <div className="memory-note" data-testid="memory-note-03">No matter where life takes us, I’m right here with you.</div>
-            <div className="memory-note" data-testid="memory-note-04">I don&apos;t just want you for today; I am looking forward to a whole life with you.</div>
+            <div className="memory-note" data-testid="memory-note-01">Your smile makes even an ordinary day feel special.</div>
+            <div className="memory-note" data-testid="memory-note-02">I love the warmth you bring to the people around you.</div>
+            <div className="memory-note" data-testid="memory-note-03">You deserve the same kindness you give everyone else.</div>
+            <div className="memory-note" data-testid="memory-note-04">I&apos;m grateful for every laugh, every conversation, every little moment with you.</div>
           </div>
           <div className="chapter-footer">
             <span data-testid="status-memories-chapter">Chapter 05 / 06</span>
