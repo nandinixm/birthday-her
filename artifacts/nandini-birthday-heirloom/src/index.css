@@ -1251,7 +1251,7 @@ body {
   font-family: 'Shadows Into Light', cursive;
   font-size: clamp(19px, 5.3vw, 23px);
   line-height: .92;
-  transform: translateY(14px) rotate(-4deg);
+  transform: translateY(48px) rotate(-4deg);
 }
 .signature-note {
   display: inline-block;
@@ -1266,7 +1266,7 @@ body {
   transform: rotate(-3deg);
 }
 .final-message.is-active .ink-reveal .signature {
-  transform: translateY(14px) rotate(-4deg);
+  transform: translateY(48px) rotate(-4deg);
 }
 
 .birthday-atmosphere {
