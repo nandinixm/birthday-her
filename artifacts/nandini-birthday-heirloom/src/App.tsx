@@ -112,10 +112,12 @@ function Home() {
             <p className="chapter-copy small" data-testid="text-letter-copy">
               <span className="letter-initial">I</span> am not always the best at saying everything I feel out loud. So I wanted to put it all down here instead. Just a quiet place to remind you exactly how much you mean to me.
             </p>
+            <p className="chapter-copy small letter-placeholder" data-testid="text-letter-placeholder-copy">
+              Some of the best days are made from little things: a laugh that lasts longer than expected, a familiar song, or a quiet moment when everything feels right. I hope this next year brings you plenty of those bright moments, happy surprises, and reasons to celebrate yourself.
+            </p>
           </div>
           <div className="letter-keepsake" aria-hidden="true">
             <div className="keepsake-card">
-              <span className="keepsake-label">for later</span>
               <span className="keepsake-mark">N</span>
             </div>
             <span className="keepsake-caption">read this slowly</span>
@@ -220,7 +222,9 @@ function Home() {
         </section>
       </div>
 
-      <p className="swipe-hint" data-testid="text-swipe-hint">Swipe up to continue</p>
+      {chapter < totalChapters - 2 && (
+        <p className="swipe-hint" data-testid="text-swipe-hint">Swipe up to continue</p>
+      )}
     </main>
   );
 }
