@@ -1336,83 +1336,109 @@ body {
 }
 .is-active .age-balloon { animation: ageBob 5.5s ease-in-out infinite; }
 
+.balloon-flight {
+  position: absolute;
+  bottom: -18%;
+  display: block;
+  opacity: 0;
+  animation: balloonRise 26s linear infinite paused;
+  will-change: transform, opacity;
+}
+.final-message.is-active .balloon-flight { animation-play-state: running; }
+
 .birthday-balloon {
   position: absolute;
-  bottom: -24%;
+  inset: 0;
   display: block;
-  width: 44px;
-  height: 58px;
-  border: 1px solid rgba(104,59,69,.24);
-  border-radius: 50% 50% 46% 54% / 48% 49% 51% 52%;
-  opacity: 0;
-  transform-origin: 50% 100%;
-  animation: balloonRise var(--balloon-duration, 13s) linear infinite;
+  border: 1px solid rgba(91,68,70,.19);
+  border-radius: 52% 48% 48% 52% / 48% 47% 53% 52%;
+  opacity: .87;
+  box-shadow:
+    inset -8px -10px 0 rgba(84,48,60,.08),
+    2px 5px 12px rgba(111,64,66,.08);
 }
 .birthday-balloon::before {
   content: "";
   position: absolute;
-  top: 12px;
-  left: 10px;
-  width: 8px;
-  height: 17px;
+  top: 17%;
+  left: 22%;
+  width: 8%;
+  height: 33%;
   border-radius: 50%;
-  background: rgba(255,249,232,.54);
+  background: linear-gradient(180deg, rgba(255,249,233,.58), rgba(255,249,233,.04));
+  filter: blur(.3px);
   transform: rotate(28deg);
 }
 .birthday-balloon::after {
   content: "";
   position: absolute;
-  top: 99%;
+  top: calc(100% - 1px);
   left: 50%;
   width: 1px;
-  height: 135px;
-  background: rgba(100,64,71,.42);
+  height: 108px;
+  background: linear-gradient(to bottom, rgba(97,68,67,.3), rgba(97,68,67,.07));
   transform: rotate(3deg);
   transform-origin: top center;
 }
-.balloon-coral { background: linear-gradient(145deg, #ff9e89, #df5e66); }
-.balloon-teal { background: linear-gradient(145deg, #8fd3cf, #439eaa); }
-.balloon-gold { background: linear-gradient(145deg, #ffe39a, #e9ad4f); }
-.balloon-pink { background: linear-gradient(145deg, #f8b8c4, #d96c8a); }
-.balloon-red { background: linear-gradient(145deg, #e97873, #b83f58); }
-.balloon-lilac { background: linear-gradient(145deg, #d8bbdf, #967ab5); }
-.balloon-one { left: 4%; --balloon-x: 22px; --balloon-x2: -8px; --balloon-duration: 12.5s; animation-delay: -3.2s; }
-.balloon-two { left: 20%; width: 34px; height: 47px; --balloon-x: -18px; --balloon-x2: 30px; --balloon-duration: 15s; animation-delay: -8.4s; }
-.balloon-three { left: 39%; width: 39px; height: 53px; --balloon-x: 28px; --balloon-x2: -16px; --balloon-duration: 13.5s; animation-delay: -5.7s; }
-.balloon-four { right: 28%; width: 35px; height: 48px; --balloon-x: -30px; --balloon-x2: 12px; --balloon-duration: 14.5s; animation-delay: -10.5s; }
-.balloon-five { right: 13%; --balloon-x: 18px; --balloon-x2: -22px; --balloon-duration: 12s; animation-delay: -1.8s; }
-.balloon-six { right: 2%; width: 36px; height: 49px; --balloon-x: -20px; --balloon-x2: 22px; --balloon-duration: 16s; animation-delay: -7.3s; }
+.balloon-coral { background: linear-gradient(145deg, #e1aaa0, #c17c82 58%, #a35f6b); }
+.balloon-teal { background: linear-gradient(145deg, #a4c7c0, #739e9b 58%, #537f84); }
+.balloon-gold { background: linear-gradient(145deg, #ebd6a7, #c9ab70 58%, #a38250); }
+.balloon-pink { background: linear-gradient(145deg, #e3bfc5, #c28697 58%, #9d697c); }
+.balloon-red { background: linear-gradient(145deg, #d99a92, #bb7076 58%, #985461); }
+.balloon-lilac { background: linear-gradient(145deg, #cbbfd0, #a08faa 58%, #796c8a); }
 
-.balloon-pop {
+.balloon-flight-one { left: 4%; width: 36px; height: 49px; --balloon-x: 18px; --balloon-x2: -9px; }
+.balloon-flight-two { left: 20%; width: 31px; height: 44px; --balloon-x: -16px; --balloon-x2: 23px; }
+.balloon-flight-three { left: 39%; width: 34px; height: 47px; --balloon-x: 23px; --balloon-x2: -13px; }
+.balloon-flight-four { right: 28%; width: 31px; height: 44px; --balloon-x: -23px; --balloon-x2: 12px; }
+.balloon-flight-five { right: 13%; width: 36px; height: 49px; --balloon-x: 14px; --balloon-x2: -18px; }
+.balloon-flight-six { right: 3%; width: 32px; height: 45px; --balloon-x: -15px; --balloon-x2: 19px; }
+
+.balloon-flight.is-popping .birthday-balloon {
+  animation: balloonBodyPop 26s ease-in-out infinite paused;
+}
+.balloon-burst {
   position: absolute;
-  z-index: 2;
-  width: 20px;
-  height: 20px;
-  color: #bd5361;
+  top: 48%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  color: rgba(255,237,196,.88);
   opacity: 0;
-  transform: scale(.2);
-  animation: balloonPop 9.5s ease-in-out infinite;
+  transform: translate(-50%, -50%) scale(.25);
+  animation: balloonBurst 26s ease-out infinite paused;
 }
-.balloon-pop::before {
-  content: "✦";
-  position: absolute;
-  inset: -8px 0 0;
-  font-family: Georgia, serif;
-  font-size: 28px;
-  line-height: 1;
-  text-align: center;
-}
-.balloon-pop::after {
+.balloon-burst::before {
   content: "";
   position: absolute;
-  inset: 1px;
-  border: 1px dashed currentColor;
+  inset: 0;
   border-radius: 50%;
-  transform: rotate(22deg);
+  background:
+    radial-gradient(circle at 50% 3%, currentColor 0 1px, transparent 1.8px),
+    radial-gradient(circle at 83% 17%, currentColor 0 1px, transparent 1.8px),
+    radial-gradient(circle at 97% 50%, currentColor 0 1px, transparent 1.8px),
+    radial-gradient(circle at 83% 83%, currentColor 0 1px, transparent 1.8px),
+    radial-gradient(circle at 50% 97%, currentColor 0 1px, transparent 1.8px),
+    radial-gradient(circle at 17% 83%, currentColor 0 1px, transparent 1.8px),
+    radial-gradient(circle at 3% 50%, currentColor 0 1px, transparent 1.8px),
+    radial-gradient(circle at 17% 17%, currentColor 0 1px, transparent 1.8px);
 }
-.pop-one { left: 13%; top: 33%; animation-delay: -2.1s; color: #bd5361; }
-.pop-two { right: 21%; top: 44%; animation-delay: -6.8s; color: #d39a33; }
-.pop-three { left: 46%; top: 24%; animation-delay: -4.6s; color: #4a9da3; }
+.balloon-burst::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff8e8;
+  box-shadow: 0 0 8px rgba(255,237,196,.82);
+  transform: translate(-50%, -50%);
+}
+.final-message.is-active .balloon-flight.is-popping .birthday-balloon,
+.final-message.is-active .balloon-flight.is-popping .balloon-burst {
+  animation-play-state: running;
+}
 
 .reread-button {
   position: relative;
@@ -1496,31 +1522,43 @@ body {
 @keyframes balloonRise {
   0% {
     opacity: 0;
-    transform: translate3d(0, 110vh, 0) rotate(-9deg) scale(.82);
+    transform: translate3d(0, 112vh, 0) rotate(-6deg);
   }
-  10% { opacity: .88; }
-  55% {
-    opacity: .92;
-    transform: translate3d(var(--balloon-x), 0, 0) rotate(8deg) scale(1);
+  28% {
+    opacity: 0;
+    transform: translate3d(0, 58vh, 0) rotate(-2deg);
   }
-  70% {
+  42% {
+    opacity: .76;
+    transform: translate3d(var(--balloon-x), 20vh, 0) rotate(2deg);
+  }
+  58% {
     opacity: .88;
-    transform: translate3d(var(--balloon-x2), -34vh, 0) rotate(-6deg) scale(1);
+    transform: translate3d(var(--balloon-x), 0, 0) rotate(-2deg);
   }
   78% {
-    opacity: 0;
-    transform: translate3d(var(--balloon-x2), -40vh, 0) rotate(18deg) scale(.24);
+    opacity: .84;
+    transform: translate3d(var(--balloon-x2), -50vh, 0) rotate(3deg);
+  }
+  94% {
+    opacity: .7;
+    transform: translate3d(var(--balloon-x2), -110vh, 0) rotate(-2deg);
   }
   100% {
     opacity: 0;
-    transform: translate3d(var(--balloon-x), -116vh, 0) rotate(24deg) scale(.7);
+    transform: translate3d(var(--balloon-x), -128vh, 0) rotate(4deg);
   }
 }
-@keyframes balloonPop {
-  0%, 57% { opacity: 0; transform: scale(.2) rotate(-18deg); }
-  63% { opacity: .95; transform: scale(1) rotate(8deg); }
-  70% { opacity: 0; transform: scale(1.75) rotate(25deg); }
-  100% { opacity: 0; transform: scale(.2) rotate(42deg); }
+@keyframes balloonBodyPop {
+  0%, 59% { opacity: .87; transform: scale(1); }
+  63% { opacity: .78; transform: scale(.88); }
+  67%, 100% { opacity: 0; transform: scale(.1); }
+}
+@keyframes balloonBurst {
+  0%, 60% { opacity: 0; transform: translate(-50%, -50%) scale(.25); }
+  63% { opacity: .48; transform: translate(-50%, -50%) scale(.82); }
+  67% { opacity: .8; transform: translate(-50%, -50%) scale(1.18); }
+  73%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.62); }
 }
 @keyframes portraitPetalFall {
   0% {

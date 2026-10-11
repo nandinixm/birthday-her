@@ -14,9 +14,30 @@ import {
 } from 'wouter';
 
 const queryClient = new QueryClient();
+const floatingBalloonColors = ['coral', 'teal', 'gold', 'pink', 'red', 'lilac'] as const;
+
+function createFloatingBalloons() {
+  const burstOrder = floatingBalloonColors.map((_, index) => index);
+  for (let index = burstOrder.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [burstOrder[index], burstOrder[swapIndex]] = [burstOrder[swapIndex], burstOrder[index]];
+  }
+
+  const burstCount = 2 + Math.floor(Math.random() * 2);
+  const burstingBalloons = new Set(burstOrder.slice(0, burstCount));
+
+  return floatingBalloonColors.map((color, index) => ({
+    id: index,
+    color,
+    pops: burstingBalloons.has(index),
+    duration: 22 + Math.random() * 8,
+    delay: Math.random() * 5,
+  }));
+}
 
 function Home() {
   const [chapter, setChapter] = useState(0);
+  const [floatingBalloons] = useState(createFloatingBalloons);
   const touchStart = useRef<number | null>(null);
   const wheelLock = useRef(false);
   const totalChapters = 6;
@@ -195,15 +216,23 @@ function Home() {
               <span className="age-number">15</span>
               <span className="age-balloon-shine" />
             </div>
-            <span className="birthday-balloon balloon-coral balloon-one" />
-            <span className="birthday-balloon balloon-teal balloon-two" />
-            <span className="birthday-balloon balloon-gold balloon-three" />
-            <span className="birthday-balloon balloon-pink balloon-four" />
-            <span className="birthday-balloon balloon-red balloon-five" />
-            <span className="birthday-balloon balloon-lilac balloon-six" />
-            <span className="balloon-pop pop-one" />
-            <span className="balloon-pop pop-two" />
-            <span className="balloon-pop pop-three" />
+            {floatingBalloons.map((balloon) => {
+              const animationTiming = {
+                animationDuration: `${balloon.duration.toFixed(2)}s`,
+                animationDelay: `${balloon.delay.toFixed(2)}s`,
+              };
+
+              return (
+                <span
+                  key={balloon.id}
+                  className={`balloon-flight balloon-flight-${balloon.id + 1}${balloon.pops ? ' is-popping' : ''}`}
+                  style={animationTiming}
+                >
+                  <span className={`birthday-balloon balloon-${balloon.color}`} style={animationTiming} />
+                  {balloon.pops && <span className="balloon-burst" style={animationTiming} />}
+                </span>
+              );
+            })}
           </div>
           <div className="ink-reveal">
             <p className="eyebrow" data-testid="text-birthday-eyebrow">TO MY FAVORITE PERSON</p>
